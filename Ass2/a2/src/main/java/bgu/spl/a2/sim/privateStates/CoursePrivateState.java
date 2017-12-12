@@ -44,4 +44,15 @@ public class CoursePrivateState extends PrivateState{
 	public List<String> getPrequisites() {
 		return prequisites;
 	}
+
+	public void setPrequisites(List<String> prequisites){ this.prequisites = prequisites; }
+
+	public void setAvailableSpots(int spaces){ this.availableSpots = spaces; }
+
+	public void setRegistered(){ this.registered++; }
+
+	public void setRegStudents(LinkedList<String> regStudents){ this.regStudents = regStudents; }
+
+	pubic void
+
 }
