@@ -22,7 +22,7 @@ public abstract class Action<R> {
     private ActorThreadPool pool;
     private String ActorId;
     private String ActionName;
-    private PrivateState ActorState;
+    protected PrivateState ActorState;
 
 	/**
      * start handling the action - note that this method is protected, a thread

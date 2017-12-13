@@ -31,5 +31,12 @@ public class DepartmentPrivateState extends PrivateState{
 	public List<String> getStudentList() {
 		return studentList;
 	}
-	
+
+	public void setCourseList(List<String> courseList){ this.courseList = courseList;}
+
+	public void setStudentList(List<String> studentList){ this.studentList = studentList; }
+
+	public void AddCourseToDepartment(String courseName){ this.courseList.add(courseName); }
+
+	public void AddStudentToDepartment(String studentID){ this.studentList.add(studentID); }
 }

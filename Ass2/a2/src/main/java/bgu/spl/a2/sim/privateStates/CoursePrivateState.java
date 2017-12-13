@@ -1,7 +1,9 @@
 package bgu.spl.a2.sim.privateStates;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import bgu.spl.a2.PrivateState;
 
@@ -51,8 +53,24 @@ public class CoursePrivateState extends PrivateState{
 
 	public void setRegistered(){ this.registered++; }
 
-	public void setRegStudents(LinkedList<String> regStudents){ this.regStudents = regStudents; }
+	public void setRegStudents(String regStudents){ this.regStudents.add(regStudents); }
 
-	pubic void
+	public boolean HasReqCourses(List<String> preCourses, HashMap<String,Integer> grades){//checks if has req courses inorder to register to a course
+
+		AtomicBoolean HasCourse = new AtomicBoolean(true);
+		String X = ((List<String>)preCourses).get(0);
+		for(int index = 0; index < preCourses.size(); index++){
+			if(!grades.containsKey(X)){//dosen't contain
+				HasCourse.set(false);
+				break;
+			}
+		}
+		if(HasCourse.toString() == "ture"){
+			return true;
+		}
+		else
+			return false;
+
+	}
 
 }

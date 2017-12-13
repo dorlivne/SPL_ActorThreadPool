@@ -1,7 +1,6 @@
 package bgu.spl.a2.sim.privateStates;
 
 import java.util.HashMap;
-
 import bgu.spl.a2.PrivateState;
 
 /**
@@ -30,5 +29,9 @@ public class StudentPrivateState extends PrivateState{
 
 	public long getSignature() {
 		return signature;
+	}
+
+	public void addCourseAndGrade(String courseName, int grade){
+		grades.put(courseName,grade);
 	}
 }

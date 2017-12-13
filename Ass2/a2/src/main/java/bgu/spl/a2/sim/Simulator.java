@@ -4,13 +4,12 @@
  * and open the template in the editor.
  */
 package bgu.spl.a2.sim;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import bgu.spl.a2.Action;
 import bgu.spl.a2.ActorThreadPool;
 import bgu.spl.a2.PrivateState;
-import bgu.spl.a2.sim.actions.newCourse;
+import bgu.spl.a2.sim.actions.OpenANewCourse;
 
 /**
  * A class describing the simulator for part 2 of the assignment
@@ -49,7 +48,7 @@ public class Simulator {
 	
 	
 	public static int main(String [] args){
-		Action X = new newCourse();
+		Action X = new OpenANewCourse();
 		//TODO: replace method body with real implementation
 		throw new UnsupportedOperationException("Not Implemented Yet.");
 	}
