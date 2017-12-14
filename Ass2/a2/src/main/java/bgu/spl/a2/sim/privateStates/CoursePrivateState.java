@@ -3,6 +3,7 @@ package bgu.spl.a2.sim.privateStates;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import bgu.spl.a2.PrivateState;
@@ -25,8 +26,8 @@ public class CoursePrivateState extends PrivateState{
 	public CoursePrivateState() {
 		this.availableSpots = 0;
 		this.registered = 0;
-		this.regStudents = new LinkedList<>();
-		this.prequisites = new LinkedList<>();
+		this.regStudents = new Vector<>();
+		this.prequisites = new Vector<>();
 		//TODO: replace method body with real implementation
 		//throw new UnsupportedOperationException("Not Implemented Yet.");
 	}
@@ -47,30 +48,45 @@ public class CoursePrivateState extends PrivateState{
 		return prequisites;
 	}
 
-	public void setPrequisites(List<String> prequisites){ this.prequisites = prequisites; }
+	public void setPrequisites(Vector<String> prequisites){ this.prequisites = prequisites; }
 
-	public void setAvailableSpots(int spaces){ this.availableSpots = spaces; }
+	public void setAvailableSpots(int spaces){ this.availableSpots = spaces; }//Only Adding not setting
 
-	public void setRegistered(){ this.registered++; }
+	public void setRegistered(int registers){ this.registered = registers; }
 
 	public void setRegStudents(String regStudents){ this.regStudents.add(regStudents); }
+
+	public void updateParametrs(int Students,String StudentID){
+		if(!regStudents.contains(StudentID)) {
+			this.registered += Students;
+			this.availableSpots -= Students;
+		}
+	}
+
+	public void RemoveStudent(String studentID){
+		if(regStudents.contains(studentID)){
+			this.regStudents.remove(studentID);
+			updateParametrs(-1,studentID);
+		}
+	}
 
 	public boolean HasReqCourses(List<String> preCourses, HashMap<String,Integer> grades){//checks if has req courses inorder to register to a course
 
 		AtomicBoolean HasCourse = new AtomicBoolean(true);
-		String X = ((List<String>)preCourses).get(0);
-		for(int index = 0; index < preCourses.size(); index++){
-			if(!grades.containsKey(X)){//dosen't contain
-				HasCourse.set(false);
-				break;
+		if(preCourses.size()>0) {
+			String X = ((List<String>) preCourses).get(0);
+			for (int index = 0; index < preCourses.size(); index++) {
+				if (!grades.containsKey(X)) {//dosen't contain
+					HasCourse.set(false);
+					break;
+				}
 			}
 		}
-		if(HasCourse.toString() == "ture"){
+		if(HasCourse.toString() == "true"){
 			return true;
 		}
 		else
 			return false;
 
 	}
-
 }

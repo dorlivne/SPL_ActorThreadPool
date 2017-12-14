@@ -48,7 +48,6 @@ public class Simulator {
 	
 	
 	public static int main(String [] args){
-		Action X = new OpenANewCourse();
 		//TODO: replace method body with real implementation
 		throw new UnsupportedOperationException("Not Implemented Yet.");
 	}

@@ -21,7 +21,7 @@ public class DepartmentPrivateState extends PrivateState{
 		this.courseList = new LinkedList<>();
 		this.studentList = new LinkedList<>();
 		//TODO: replace method body with real implementation
-		throw new UnsupportedOperationException("Not Implemented Yet.");
+//		throw new UnsupportedOperationException("Not Implemented Yet.");
 	}
 
 	public List<String> getCourseList() {

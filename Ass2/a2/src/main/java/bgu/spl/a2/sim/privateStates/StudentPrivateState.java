@@ -20,7 +20,7 @@ public class StudentPrivateState extends PrivateState{
 		this.grades = new HashMap<>();
 		this.signature = 0;
 		//TODO: replace method body with real implementation
-		throw new UnsupportedOperationException("Not Implemented Yet.");
+		//throw new UnsupportedOperationException("Not Implemented Yet.");
 	}
 
 	public HashMap<String, Integer> getGrades() {
@@ -34,4 +34,9 @@ public class StudentPrivateState extends PrivateState{
 	public void addCourseAndGrade(String courseName, int grade){
 		grades.put(courseName,grade);
 	}
+
+	public void removeCourse(String courseName){
+		grades.remove(courseName);
+	}
+
 }

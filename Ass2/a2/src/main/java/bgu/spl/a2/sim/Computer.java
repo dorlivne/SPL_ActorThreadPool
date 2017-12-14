@@ -41,7 +41,7 @@ public class Computer {
 				break;
 			}
 		}
-		if(Passed.toString() == "true" && HasCourse.toString() == "ture"){
+		if(Passed.toString() == "true" && HasCourse.toString() == "true"){
 			return 1;
 		}
 		else
