@@ -39,4 +39,6 @@ public class DepartmentPrivateState extends PrivateState{
 	public void AddCourseToDepartment(String courseName){ this.courseList.add(courseName); }
 
 	public void AddStudentToDepartment(String studentID){ this.studentList.add(studentID); }
+
+	public void RemoveCourseFromDepartment(String courseName){ this.courseList.remove(courseName); }
 }

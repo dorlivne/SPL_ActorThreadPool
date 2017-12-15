@@ -8,7 +8,9 @@ public class AddSpacesConfirmation extends Action {
     private int spacesToAdd;
 
     public AddSpacesConfirmation(int spaces){
+
         this.spacesToAdd = spaces;
+        this.setActionName("Add Spaces Confirmation");
     }
 
     @Override

@@ -17,6 +17,7 @@ public class ParticipateInCourseConfirmation extends Action{
         this.courseName = courseName;
         this.CorsesAndGrades = CorsesAndGrades;
         this.studentID =studentID;
+        this.setActionName("Participate In Course Confirmation");
     }
 
     @Override

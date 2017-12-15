@@ -8,7 +8,9 @@ public class AddStudentConfirmation extends Action{
     private String studentID;
 
     public AddStudentConfirmation (String studentID){
+
         this.studentID = studentID;
+        this.setActionName("Add Student Confirmation");
     }
 
     @Override

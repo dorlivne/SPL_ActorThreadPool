@@ -8,7 +8,9 @@ public class UnregisterConfirmation extends Action {
     private String StudentID;
 
     public  UnregisterConfirmation(String studentID){
+
         this.StudentID = studentID;
+        this.setActionName("Unregister Student Confirmation");
     }
 
     @Override

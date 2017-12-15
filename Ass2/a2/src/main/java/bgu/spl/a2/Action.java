@@ -19,46 +19,46 @@ public abstract class Action<R> {
     private Promise<R> promise = new Promise<>();
     private boolean Contiunation = false;
     private callback Tag;
-    private ActorThreadPool pool;
+    protected ActorThreadPool pool;
     private String ActorId;
     private String ActionName;
     protected PrivateState ActorState;
 
-	/**
+    /**
      * start handling the action - note that this method is protected, a thread
      * cannot call it directly.
      */
     protected abstract void start();
-    
+
 
     /**
-    *
-    * start/continue handling the action
-    *
-    * this method should be called in order to start this action
-    * or continue its execution in the case where it has been already started.
-    *
-    * IMPORTANT: this method is package protected, i.e., only classes inside
-    * the same package can access it - you should *not* change it to
-    * public/private/protected
-    *
-    */
-   /*package*/ final void handle(ActorThreadPool pool, String actorId, PrivateState actorState) {
-       this.ActorId = actorId;
-       this.pool = pool;
-       this.ActorState = actorState;
-       if(this.Contiunation) {
-           this.Tag.call();
-           Contiunation = false;
-       }else
-           start();
-   }
-    
-    
+     *
+     * start/continue handling the action
+     *
+     * this method should be called in order to start this action
+     * or continue its execution in the case where it has been already started.
+     *
+     * IMPORTANT: this method is package protected, i.e., only classes inside
+     * the same package can access it - you should *not* change it to
+     * public/private/protected
+     *
+     */
+    /*package*/ final void handle(ActorThreadPool pool, String actorId, PrivateState actorState) {
+        this.ActorId = actorId;
+        this.pool = pool;
+        this.ActorState = actorState;
+        if(this.Contiunation) {
+            this.Tag.call();
+            Contiunation = false;
+        }else
+            start();
+    }
+
+
     /**
      * add a callback to be executed once *all* the given actions results are
      * resolved
-     * 
+     *
      * Implementors note: make sure that the callback is running only once when
      * all the given actions completed.
      *
@@ -71,15 +71,15 @@ public abstract class Action<R> {
         Iterator< ? extends  Action<?> > NeedToComplete = actions.iterator();
         if(actions.size() == 0)
             callback.call();
-        AtomicInteger ActionLeft =new AtomicInteger(actions.size());//amount of action to be fulfilled
+        AtomicInteger ActionLeft = new AtomicInteger(actions.size());//amount of action to be fulfilled
         while (NeedToComplete.hasNext()) {
-          //  if (!CurrentMission.getResult().isResolved())//check if current mission is resolved
-            NeedToComplete.next().getResult().subscribe(() -> {
-                                        ActionLeft.decrementAndGet();
-                                        if(ActionLeft.intValue() == 0)///Completed all the actions
-                                           sendMessage(this,ActorId,ActorState);//submit the continuation to the pool
-                                         });
-            }
+            //  if (!CurrentMission.getResult().isResolved())//check if current mission is resolved
+            NeedToComplete.next().getResult().subscribe( () -> {
+                ActionLeft.decrementAndGet();
+                if(ActionLeft.intValue() == 0)///Completed all the actions
+                    sendMessage(this,ActorId,ActorState);//submit the continuation to the pool
+            });
+        }
     }
 
     /**
@@ -93,43 +93,43 @@ public abstract class Action<R> {
             promise.resolve(result);
 
     }
-    
+
     /**
      * @return action's promise (result)
      */
     public final Promise<R> getResult() {
         return promise;
     }
-    
+
     /**
      * send an action to an other actor
-     * 
+     *
      * @param action
      * 				the action
      * @param actorId
      * 				actor's id
      * @param actorState
-	 * 				actor's private state (actor's information)
-	 *    
+     * 				actor's private state (actor's information)
+     *
      * @return promise that will hold the result of the sent action
      */
-	public Promise<?> sendMessage(Action<?> action, String actorId, PrivateState actorState){
+    public Promise<?> sendMessage(Action<?> action, String actorId, PrivateState actorState){
         this.pool.submit(action,actorId,actorState);
         return action.getResult();
-	}
-	
-	/**
-	 * set action's name
-	 * @param actionName
-	 */
-	public void setActionName(String actionName){
+    }
+
+    /**
+     * set action's name
+     * @param actionName
+     */
+    public void setActionName(String actionName){
         this.ActionName = actionName;
-	}
-	
-	/**
-	 * @return action's name
-	 */
-	public String getActionName(){
-       return ActionName;
-	}
+    }
+
+    /**
+     * @return action's name
+     */
+    public String getActionName(){
+        return ActionName;
+    }
 }

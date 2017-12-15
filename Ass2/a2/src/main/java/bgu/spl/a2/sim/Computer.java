@@ -13,11 +13,13 @@ public class Computer {
 	String computerType;
 	long failSig;
 	long successSig;
-	
+	SuspendingMutex Key;
+
 	public Computer(String computerType) {
 		this.computerType = computerType;
+		this.Key = new SuspendingMutex(this);
 	}
-	
+
 	/**
 	 * this method checks if the courses' grades fulfill the conditions
 	 * @param courses
@@ -41,13 +43,11 @@ public class Computer {
 				break;
 			}
 		}
-		if(Passed.toString() == "true" && HasCourse.toString() == "true"){
+		if(Passed.toString().equals("true")  && HasCourse.toString().equals("true")){
 			return 1;
 		}
 		else
 			return 0;
 
-		//TODO: replace method body with real implementation
-		//throw new UnsupportedOperationException("Not Implemented Yet.");
 	}
 }

@@ -1,10 +1,10 @@
 package bgu.spl.a2;
 
-import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
 
-import java.util.Iterator;
-import java.util.Queue;
-import java.util.Vector;
+
+import sun.misc.Queue;
+
+import java.util.*;
 
 /**
  * represents an actor thread pool - to understand what this class does please
@@ -19,8 +19,13 @@ import java.util.Vector;
 public class ActorThreadPool {
 	private Vector<Thread> _Threads = new Vector<>();
 	private boolean shutdown = false;
-	private Vector<ActorQueue<Action>> _Actors = new Vector<>();
+	private Vector<Queue<Action>> _Actors = new Vector<>();
+	private Vector<String>   _ActorsId = new Vector<>();
+	private HashMap<String,Boolean>  _ActorsOccupied = new HashMap<>();
+	private HashMap<String,PrivateState> _ActorsPrivateState = new HashMap<>();
 	private VersionMonitor _version;
+	private Object Lock = new Object();
+
 
 
 	/**
@@ -51,18 +56,33 @@ public class ActorThreadPool {
 	 * @param actorId    corresponding actor's id
 	 * @param actorState actor's private state (actor's information)
 	 */
+	/*
+	the reason for the Lock-sync is that i want to avoid a situation where a thread enters this function searches for the actor not finding it
+	and creating a new actor , there can be a situation where two threads enter this func and two of the create the same actor
+	 */
 	public void submit(Action<?> action, String actorId, PrivateState actorState) {
 		boolean Submitted = false;
 		for (int i = 0; i < _Actors.size() & !Submitted; i++) {
-			if (_Actors.get(i).get_Actorid().equals(actorId)) {
+			if (_ActorsId.get(i).equals(actorId)) {
 				_Actors.get(i).enqueue(action);
 				Submitted = true;
 			}
 		}//Actor Not found
 		if (!Submitted) {
-			ActorQueue<Action> x = new ActorQueue<>(actorId, actorState);
-			x.enqueue(action);
-			_Actors.add(x);
+			synchronized (Lock){//TODO Is this needed??
+				if(_ActorsPrivateState.containsKey(actorId)){//means some other thread already added this actor
+					submit(action,actorId,actorState);
+					Lock.notifyAll();
+					return;
+				}
+				Queue<Action> x = new Queue<>();
+				x.enqueue(action);
+				_Actors.add(x);//Add the Queue of Actions to The vector
+				_ActorsId.add(actorId);//now we need to add the name and private state to the appropriate queue
+				_ActorsOccupied.put(actorId,false);
+				_ActorsPrivateState.put(actorId,actorState);
+				Lock.notifyAll();
+			}
 		}
 		_version.inc();//updates pool's version
 	}
@@ -89,45 +109,67 @@ public class ActorThreadPool {
 	public void start() {
 		for (Thread thread : _Threads)
 			thread.start();
-
-
+	}
+	/**
+	 * getter for actors
+	 * @return actors
+	 */
+	public Map<String, PrivateState> getActors(){
+		return _ActorsPrivateState;
+	}
+	/**
+	 * getter for actor's private state
+	 * @param actorId actor's id
+	 * @return actor's private state
+	 */
+	public PrivateState getPrivateStates(String actorId){
+		return _ActorsPrivateState.get(actorId);
+		//Should be able to find the actor id if not found return null
 	}
 
 	////Added Functions
 	private void ThreadFunction() {
 		while(!shutdown) {
 			boolean Executing = false;
-			ActorQueue<Action> WorkingQueue = null;
+			Queue<Action> WorkingQueue = null;
+			String WorkingActor = null;
+			PrivateState WorkingPrivateState = null;
 			synchronized (_Actors) {//Looking for available queue
-				Iterator<ActorQueue<Action>> actorIterator = _Actors.iterator();
+				Iterator<Queue<Action>> actorIterator = _Actors.iterator();
+				Iterator<String> actorIdIterator = _ActorsId.iterator();
 				while (actorIterator.hasNext() && !Executing) {
-					ActorQueue<Action> actor = actorIterator.next();
-					if (!actor.is_Occupied() & !actor.isEmpty()) {//Available actorqueue with actions in it
-						actor.set_Occupied(true);
+					Queue<Action> actor = actorIterator.next();
+					String ActorId = actorIdIterator.next();
+					if (!_ActorsOccupied.get(ActorId) & !actor.isEmpty()) {//Available queue with actions in it
+						_ActorsOccupied.put(ActorId,true);
 						Executing = true;
 						WorkingQueue = actor;
+						WorkingActor = ActorId;
+						WorkingPrivateState = _ActorsPrivateState.get(ActorId);
 						_Actors.notifyAll();//Wake the threads waiting on this vector of queue
 					}
 				}
 			}//only one thread goes through the vector the reason is an exception thrown by the iterator
-			if (!Executing) {//No available Actors or actions
+			if (!Executing) {//No available Actors
 				try {
 					this._version.await(_version.getVersion());
 				} catch (InterruptedException e) {//A thread has just Completed a Turn
 				}
 			} else {//Executing = true means we need to exe an action
-				//TODO by using the boolean Occupied we may be able to get past that problem/TODO by using the boolean Occupied we may be able to get past that problem
-				//TODO maybe need a sync on this queue problem is the iterator is going through the queue so if some queue is locked an Exception is being thrown
-				try {
-				    Action Act = ((Action)WorkingQueue.dequeue());
-				    Act.handle(this, WorkingQueue.get_Actorid(), WorkingQueue.get_PrivateState());
-				} catch (InterruptedException e) {
-				}
-				WorkingQueue.set_Occupied(false);//the thread finished with this queue can be use by another thread
+				try {//because of Interrupt exception throw fromm queue
+					Action Act = WorkingQueue.dequeue();
+					WorkingPrivateState.addRecord(Act.getActionName());
+					Act.handle(this, WorkingActor, WorkingPrivateState);
+				} catch (InterruptedException e) {}
+				_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
 				_version.inc();
 			}
 		}
 	}
+
+	/*protected Vector<ActorQueue<Action>> get_Actors() {
+		return _Actors;
+	}*/
 }
 
 

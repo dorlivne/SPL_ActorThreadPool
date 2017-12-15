@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 
-import bgu.spl.a2.sim.actions.AddStudent;
-import bgu.spl.a2.sim.actions.OpenANewCourse;
-import bgu.spl.a2.sim.actions.ParticipateInCourse;
+import bgu.spl.a2.sim.actions.*;
 import bgu.spl.a2.sim.privateStates.CoursePrivateState;
 import bgu.spl.a2.sim.privateStates.StudentPrivateState;
 import java.util.Vector;
@@ -129,6 +127,14 @@ public class BankTest {
         pre.add("DataStructers");
         Action<Boolean> OpenCourse2 = new OpenANewCourse("System Programing",10,pre,"CS");
 
+
+        Action<Boolean> CloseCourse = new CloseCourse("CS","DataStructers");
+
+        Action<Boolean> unregister0 = new Unregister("Dor","DataStructers");
+
+        Action<Boolean> CloseCourse1 = new CloseCourse("Math","Linear Algebra");
+
+
         pool.submit(AddStudent0,"Tom",new StudentPrivateState());
         pool.submit(AddStudent1,"Dor",new StudentPrivateState());
         pool.submit(AddStudent2,"Amit",new StudentPrivateState());
@@ -144,10 +150,12 @@ public class BankTest {
         pool.submit(PartInCourse1,"Dor",new StudentPrivateState());
         pool.submit(PartInCourse2,"Amit",new StudentPrivateState());
 
+        pool.submit(unregister0,"Dor",new StudentPrivateState());
+        pool.submit(CloseCourse1,"Linear Algebra", new CoursePrivateState());
+        pool.submit(CloseCourse,"DataStructers" ,new CoursePrivateState());
 
 
-
-        CountDownLatch l = new CountDownLatch(10);
+        CountDownLatch l = new CountDownLatch(11);
         OpenCourse0.getResult().subscribe(() -> l.countDown());
         OpenCourse1.getResult().subscribe(() -> l.countDown());
         OpenCourse2.getResult().subscribe(() -> l.countDown());
@@ -158,10 +166,17 @@ public class BankTest {
         PartInCourse1.getResult().subscribe(()-> l.countDown());
         PartInCourse2.getResult().subscribe(()-> l.countDown());
         PartInCourse3.getResult().subscribe(()-> l.countDown());
+        CloseCourse.getResult().subscribe(()-> l.countDown());
         try {
             l.await();
         } catch (InterruptedException e) {
         }
+
+        System.out.println(((CoursePrivateState) pool.getPrivateStates("DataStructers")).getAvailableSpots());
+        System.out.println(((CoursePrivateState) pool.getPrivateStates("DataStructers")).getRegStudents().toString());
+
+        System.out.println(((CoursePrivateState) pool.getPrivateStates("Linear Algebra")).getAvailableSpots());
+        System.out.println(((CoursePrivateState) pool.getPrivateStates("Linear Algebra")).getRegStudents().toString());
         pool.shutdown();
 
         System.out.println("END OF TEST");

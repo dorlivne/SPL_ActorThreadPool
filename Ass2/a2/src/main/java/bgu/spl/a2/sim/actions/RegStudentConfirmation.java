@@ -21,6 +21,7 @@ public class RegStudentConfirmation extends Action {
         this.courseName = courseName;
         this.CorsesAndGrades = CorsesAndGrades;
         this.studentID =studentID;
+        this.setActionName("Register Student Confirmation");
     }
 
     @Override

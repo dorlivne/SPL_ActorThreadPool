@@ -50,7 +50,7 @@ public class CoursePrivateState extends PrivateState{
 
 	public void setPrequisites(Vector<String> prequisites){ this.prequisites = prequisites; }
 
-	public void setAvailableSpots(int spaces){ this.availableSpots = spaces; }//Only Adding not setting
+	public void setAvailableSpots(int spaces){ this.availableSpots = spaces; }
 
 	public void setRegistered(int registers){ this.registered = registers; }
 

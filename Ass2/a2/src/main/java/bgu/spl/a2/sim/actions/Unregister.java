@@ -32,11 +32,11 @@ public class Unregister extends Action {
                 ((StudentPrivateState)this.ActorState).removeCourse(courseName);//Removing course to student
                 this.ActorState.addRecord(getActionName());
                 complete(true);
-                System.out.println("student" + this.studentID + " removed from " + this.courseName + "course");
+                System.out.println("student " + this.studentID + " removed from " + this.courseName + " course");
             }
             else{
                 complete(false);
-                System.out.println("student" + this.studentID + "wasn't removed from " + this.courseName + "course");
+                System.out.println("student " + this.studentID + " wasn't removed from " + this.courseName + " course");
             }
         });
     }
