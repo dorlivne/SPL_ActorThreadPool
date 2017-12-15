@@ -5,12 +5,7 @@
  */
 package bgu.spl.a2.sim;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Vector;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
-import bgu.spl.a2.Action;
-import bgu.spl.a2.ActorQueue;
 import bgu.spl.a2.ActorThreadPool;
 import bgu.spl.a2.PrivateState;
 

@@ -25,6 +25,4 @@ public abstract class PrivateState {
 	public void addRecord(String actionName){
 		history.add(actionName);
 	}
-	
-	
 }

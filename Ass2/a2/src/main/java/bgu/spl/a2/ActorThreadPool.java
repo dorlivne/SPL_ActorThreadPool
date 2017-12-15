@@ -158,7 +158,7 @@ public class ActorThreadPool {
 			} else {//Executing = true means we need to exe an action
 				try {//because of Interrupt exception throw fromm queue
 					Action Act = WorkingQueue.dequeue();
-					WorkingPrivateState.addRecord(Act.getActionName());
+				//	WorkingPrivateState.addRecord(Act.getActionName());
 					Act.handle(this, WorkingActor, WorkingPrivateState);
 				} catch (InterruptedException e) {}
 				_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
