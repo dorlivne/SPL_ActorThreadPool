@@ -3,20 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3447177c-ac9d-4e34-b33d-3325d1bec296" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/Action.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/Action.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/ActorThreadPool.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/ActorThreadPool.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/Computer.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/Computer.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/Simulator.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/Simulator.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/SuspendingMutex.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/SuspendingMutex.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/Warehouse.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/Warehouse.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/privateStates/DepartmentPrivateState.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/privateStates/DepartmentPrivateState.class" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/BankTest.class" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/BankTest.class" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission$1.class" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission$1.class" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission$2.class" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission$2.class" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission$3.class" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission$3.class" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission$4.class" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission$4.class" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission.class" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/Transmission.class" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/confirmation.class" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/confirmation.class" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -582,7 +568,14 @@
       <option name="project" value="LOCAL" />
       <updated>1513355140679</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Updated - comp,Mutex,Part2Actions">
+      <created>1513355181793</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1513355181793</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -688,7 +681,8 @@
     <MESSAGE value="12/12" />
     <MESSAGE value="13/12" />
     <MESSAGE value="After tests 4 actions part 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="After tests 4 actions part 2" />
+    <MESSAGE value="Updated - comp,Mutex,Part2Actions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated - comp,Mutex,Part2Actions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
