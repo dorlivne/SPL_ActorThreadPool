@@ -140,7 +140,7 @@ public class ActorThreadPool {
 				while (actorIterator.hasNext() && !Executing) {
 					Queue<Action> actor = actorIterator.next();
 					String ActorId = actorIdIterator.next();
-					if (!_ActorsOccupied.get(ActorId) & !actor.isEmpty()) {//Available queue with actions in it
+					if (!_ActorsOccupied.get(ActorId) && !actor.isEmpty()) {//Available queue with actions in it
 						_ActorsOccupied.put(ActorId,true);
 						Executing = true;
 						WorkingQueue = actor;
@@ -158,7 +158,7 @@ public class ActorThreadPool {
 			} else {//Executing = true means we need to exe an action
 				try {//because of Interrupt exception throw fromm queue
 					Action Act = WorkingQueue.dequeue();
-				//	WorkingPrivateState.addRecord(Act.getActionName());
+					WorkingPrivateState.addRecord(Act.getActionName());
 					Act.handle(this, WorkingActor, WorkingPrivateState);
 				} catch (InterruptedException e) {}
 				_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
@@ -170,7 +170,14 @@ public class ActorThreadPool {
 	/*protected Vector<ActorQueue<Action>> get_Actors() {
 		return _Actors;
 	}*/
+
+
+/*
+public Vector<Boolean> getThread(){
+	Vector <Boolean> x = new Vector<>();
+	for (Thread w:_Threads) {
+		x.add(w.isAlive());
+	}
+	return x;
+}*/
 }
-
-
-

@@ -50,4 +50,9 @@ public class Computer {
 			return 0;
 
 	}
+
+	public void setSig(long failSig,long successSig){
+		this.failSig=failSig;
+		this.successSig=successSig;
+	}
 }

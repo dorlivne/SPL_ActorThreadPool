@@ -29,8 +29,9 @@ public class VersionMonitor {
         }
 
 
-    public  void inc() {
+    public synchronized void inc() {
         this.version.incrementAndGet();
+        this.notifyAll();
     }
 
     /**synchronized is needed because this method is where threads go to wait and wait has to have a lock
@@ -42,8 +43,7 @@ public class VersionMonitor {
         while(this.version.get() == version) {//we wait until the version of our objects equals to the needed version
                 this.wait();
         }
-   //TODO: this.notifyAll();-why isn't needed?
-       throw new InterruptedException();
+   //    throw new InterruptedException();
 
     }
 }
