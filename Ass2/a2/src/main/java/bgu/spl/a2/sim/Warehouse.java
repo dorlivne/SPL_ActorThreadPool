@@ -2,6 +2,7 @@ package bgu.spl.a2.sim;
 
 import bgu.spl.a2.Promise;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 /**
@@ -10,24 +11,21 @@ import java.util.Vector;
  *
  */
 public class Warehouse {
-    private Vector<Computer> Computers;
+    private HashMap<String,Computer> Computers;
 
 
     /*
         Some Action Call the warehouse in order to claim a certain computer(As noted in the json file) so we search the
         computer here and try to claim it through warehouse ,thats why we need to have a public promise <Computer > function
      */
-    public Warehouse(Vector<Computer> Computers) {
+    public Warehouse(HashMap<String,Computer> Computers) {
         this.Computers = Computers;
     }
 
     public Promise<Computer> GetComputer(String ComputerName){
-        for (Computer computer : Computers) {
-            if( computer.computerType.equals(ComputerName))
-                return computer.Key.down();//Try to Lock the computer
-        }
-        throw new IllegalArgumentException("No such Computer name");
+        return Computers.get(ComputerName).Key.down();
     }
-
-
 }
+
+
+

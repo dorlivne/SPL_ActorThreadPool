@@ -15,8 +15,10 @@ public class Computer {
 	long successSig;
 	SuspendingMutex Key;
 
-	public Computer(String computerType) {
+	public Computer(String computerType,long failSig,long successSig) {
 		this.computerType = computerType;
+		this.failSig = failSig;
+		this.successSig = successSig;
 		this.Key = new SuspendingMutex(this);
 	}
 
@@ -54,5 +56,11 @@ public class Computer {
 	public void setSig(long failSig,long successSig){
 		this.failSig=failSig;
 		this.successSig=successSig;
+	}
+	public void Release(){
+		this.Key.up();
+	}
+	public long getSuccessSig(){
+		return successSig;
 	}
 }

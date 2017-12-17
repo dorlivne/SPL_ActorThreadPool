@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  */
 public class SuspendingMutex {
-	private AtomicBoolean Locked;
+	private AtomicBoolean Locked = new AtomicBoolean();
 	private Computer computer;
 	private Promise<Boolean> Key;
 

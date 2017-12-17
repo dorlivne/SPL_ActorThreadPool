@@ -117,86 +117,87 @@ public class BankTest {
         }
         pool.shutdown();
     }*/
+        for ( int i = 0; i < 5; i++) {
+            System.out.println(Thread.currentThread().toString());
+            ActorThreadPool pool = new ActorThreadPool(5);
+            Action<Boolean> AddStudent0 = new AddStudent("CS", "Tom");
+            Action<Boolean> AddStudent1 = new AddStudent("CS", "Dor");
+            Action<Boolean> AddStudent2 = new AddStudent("CS", "Amit");
+
+            Action<Boolean> PartInCourse0 = new ParticipateInCourse("Tom", "DataStructers", 56);
+            Action<Boolean> PartInCourse1 = new ParticipateInCourse("Dor", "DataStructers", 88);
+            Action<Boolean> PartInCourse2 = new ParticipateInCourse("Amit", "Linear Algebra", 30);
+            Action<Boolean> PartInCourse3 = new ParticipateInCourse("Tom", "System Programing", 56);
+
+            Action<Boolean> OpenCourse0 = new OpenANewCourse("DataStructers", 10, new Vector<String>(), "CS");
+            Action<Boolean> OpenCourse1 = new OpenANewCourse("Linear Algebra", 10, new Vector<String>(), "Math");
+            Vector<String> pre = new Vector<>();
+            pre.add("DataStructers");
+            Action<Boolean> OpenCourse2 = new OpenANewCourse("System Programing", 10, pre, "CS");
 
 
-      /*  ActorThreadPool pool = new ActorThreadPool(900);
-        Action<Boolean> AddStudent0 = new AddStudent("CS","Tom");
-        Action<Boolean> AddStudent1 = new AddStudent("CS","Dor");
-        Action<Boolean> AddStudent2 = new AddStudent("CS","Amit");
+            Action<Boolean> CloseCourse = new CloseCourse("CS", "DataStructers");
 
-        Action<Boolean> PartInCourse0 = new ParticipateInCourse("Tom","DataStructers",56);
-        Action<Boolean> PartInCourse1 = new ParticipateInCourse("Dor","DataStructers",88);
-        Action<Boolean> PartInCourse2 = new ParticipateInCourse("Amit","Linear Algebra",30);
-        Action<Boolean> PartInCourse3 = new ParticipateInCourse("Tom","System Programing",56);
+            Action<Boolean> unregister0 = new Unregister("Dor", "DataStructers");
 
-        Action<Boolean> OpenCourse0 = new OpenANewCourse("DataStructers",10,new Vector<String>() ,"CS");
-        Action<Boolean> OpenCourse1 = new OpenANewCourse("Linear Algebra",10,new Vector<String>() ,"Math");
-        Vector<String> pre = new Vector<>();
-        pre.add("DataStructers");
-        Action<Boolean> OpenCourse2 = new OpenANewCourse("System Programing",10,pre,"CS");
+            Action<Boolean> CloseCourse1 = new CloseCourse("Math", "Linear Algebra");
 
 
-        Action<Boolean> CloseCourse = new CloseCourse("CS","DataStructers");
+            pool.submit(AddStudent0, "Tom", new StudentPrivateState());
+            pool.submit(AddStudent1, "Dor", new StudentPrivateState());
+            pool.submit(AddStudent2, "Amit", new StudentPrivateState());
 
-        Action<Boolean> unregister0 = new Unregister("Dor","DataStructers");
+            pool.start();
 
-        Action<Boolean> CloseCourse1 = new CloseCourse("Math","Linear Algebra");
+            pool.submit(OpenCourse0, "DataStructers", new CoursePrivateState());
+            pool.submit(OpenCourse1, "Linear Algebra", new CoursePrivateState());
+            pool.submit(OpenCourse2, "System Programing", new CoursePrivateState());
 
+            pool.submit(PartInCourse3, "Tom", new StudentPrivateState());
+            pool.submit(PartInCourse0, "Tom", new StudentPrivateState());
+            pool.submit(PartInCourse1, "Dor", new StudentPrivateState());
+            pool.submit(PartInCourse2, "Amit", new StudentPrivateState());
 
-        pool.submit(AddStudent0,"Tom",new StudentPrivateState());
-        pool.submit(AddStudent1,"Dor",new StudentPrivateState());
-        pool.submit(AddStudent2,"Amit",new StudentPrivateState());
-
-        pool.start();
-
-        pool.submit(OpenCourse0,"DataStructers", new CoursePrivateState());
-        pool.submit(OpenCourse1,"Linear Algebra", new CoursePrivateState());
-        pool.submit(OpenCourse2,"System Programing", new CoursePrivateState());
-
-        pool.submit(PartInCourse3,"Tom",new StudentPrivateState());
-        pool.submit(PartInCourse0,"Tom",new StudentPrivateState());
-        pool.submit(PartInCourse1,"Dor",new StudentPrivateState());
-        pool.submit(PartInCourse2,"Amit",new StudentPrivateState());
-
-        pool.submit(unregister0,"Dor",new StudentPrivateState());
-        pool.submit(CloseCourse1,"Linear Algebra", new CoursePrivateState());
-        pool.submit(CloseCourse,"DataStructers" ,new CoursePrivateState());
+            pool.submit(unregister0, "Dor", new StudentPrivateState());
+            pool.submit(CloseCourse1, "Linear Algebra", new CoursePrivateState());
+            pool.submit(CloseCourse, "DataStructers", new CoursePrivateState());
 
 
-        CountDownLatch l = new CountDownLatch(11);
-        OpenCourse0.getResult().subscribe(() -> l.countDown());
-        OpenCourse1.getResult().subscribe(() -> l.countDown());
-        OpenCourse2.getResult().subscribe(() -> l.countDown());
-        AddStudent0.getResult().subscribe(()-> l.countDown());
-        AddStudent1.getResult().subscribe(()-> l.countDown());
-        AddStudent2.getResult().subscribe(()-> l.countDown());
-        PartInCourse0.getResult().subscribe(()-> l.countDown());
-        PartInCourse1.getResult().subscribe(()-> l.countDown());
-        PartInCourse2.getResult().subscribe(()-> l.countDown());
-        PartInCourse3.getResult().subscribe(()-> l.countDown());
-        CloseCourse.getResult().subscribe(()-> l.countDown());
-        try {
-            l.await();
-        } catch (InterruptedException e) {
+            CountDownLatch l = new CountDownLatch(11);
+            OpenCourse0.getResult().subscribe(() -> l.countDown());
+            OpenCourse1.getResult().subscribe(() -> l.countDown());
+            OpenCourse2.getResult().subscribe(() -> l.countDown());
+            AddStudent0.getResult().subscribe(() -> l.countDown());
+            AddStudent1.getResult().subscribe(() -> l.countDown());
+            AddStudent2.getResult().subscribe(() -> l.countDown());
+            PartInCourse0.getResult().subscribe(() -> l.countDown());
+            PartInCourse1.getResult().subscribe(() -> l.countDown());
+            PartInCourse2.getResult().subscribe(() -> l.countDown());
+            PartInCourse3.getResult().subscribe(() -> l.countDown());
+            CloseCourse.getResult().subscribe(() -> l.countDown());
+            try {
+                l.await();
+            } catch (InterruptedException e) {
+            }
+
+            System.out.println(((CoursePrivateState) pool.getPrivateStates("DataStructers")).getAvailableSpots());
+            System.out.println(((CoursePrivateState) pool.getPrivateStates("DataStructers")).getRegStudents().toString());
+
+            System.out.println(((CoursePrivateState) pool.getPrivateStates("Linear Algebra")).getAvailableSpots());
+            System.out.println(((CoursePrivateState) pool.getPrivateStates("Linear Algebra")).getRegStudents().toString());
         }
+         //   pool.shutdown();
 
-        System.out.println(((CoursePrivateState) pool.getPrivateStates("DataStructers")).getAvailableSpots());
-        System.out.println(((CoursePrivateState) pool.getPrivateStates("DataStructers")).getRegStudents().toString());
-
-        System.out.println(((CoursePrivateState) pool.getPrivateStates("Linear Algebra")).getAvailableSpots());
-        System.out.println(((CoursePrivateState) pool.getPrivateStates("Linear Algebra")).getRegStudents().toString());
-        pool.shutdown();
-
-        System.out.println("END OF TEST");
-    }
-}*/
+            System.out.println("END OF TEST");
+        }
+}
 
 
-        for (int i=0 ; i<100000 ; i++) {
+   /*     for (int i=0 ; i<100000 ; i++) {
             ActorThreadPool pool = new ActorThreadPool(8);
             pool.start();
 
-            Action<Boolean> OpenCourse0 = new OpenANewCourse(15 ,new Vector<String>(), "CS");
+            Action<Boolean> OpenCourse0 = new OpenANewCourse ("CS" ,15 , new Vector<String>());
             pool.submit(OpenCourse0, "DataStructers", new CoursePrivateState());
 
             CountDownLatch l1 = new CountDownLatch(1);
@@ -382,4 +383,4 @@ public class BankTest {
         }
         System.out.println("END OF TEST");
     }
-}
+}*/

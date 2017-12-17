@@ -18,7 +18,7 @@ public class AddStudent extends Action{
 
     @Override
     protected void start() {
-        System.out.println("Adding Student " + this.studentID);
+        System.out.println("Adding Student " + this.studentID + "   " + Thread.currentThread().toString());
         List<Action<Boolean>> actions = new ArrayList<>();
         Action<Boolean> AddStudentConfirmation = new AddStudentConfirmation(this.studentID);
         actions.add(AddStudentConfirmation);
@@ -28,7 +28,7 @@ public class AddStudent extends Action{
             if(result == true) {
                 complete(true);
                 this.ActorState.addRecord(getActionName());
-                System.out.println("Student: " + this.studentID + " added");
+                System.out.println("Student: " + this.studentID + " added" + "   " + Thread.currentThread().toString());
             }
             else{
                 complete(false);

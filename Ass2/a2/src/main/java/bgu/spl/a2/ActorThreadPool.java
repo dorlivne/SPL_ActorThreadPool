@@ -131,9 +131,9 @@ public class ActorThreadPool {
 	private void ThreadFunction() {
 		while(!shutdown) {
 			boolean Executing = false;
-			Queue<Action> WorkingQueue = null;
 			String WorkingActor = null;
 			PrivateState WorkingPrivateState = null;
+			Action Act = null;
 			synchronized (_Actors) {//Looking for available queue
 				Iterator<Queue<Action>> actorIterator = _Actors.iterator();
 				Iterator<String> actorIdIterator = _ActorsId.iterator();
@@ -142,8 +142,10 @@ public class ActorThreadPool {
 					String ActorId = actorIdIterator.next();
 					if (!_ActorsOccupied.get(ActorId) && !actor.isEmpty()) {//Available queue with actions in it
 						_ActorsOccupied.put(ActorId,true);
+						try {
+							Act = actor.dequeue();
+						}catch(InterruptedException e){System.out.println("WTF");}
 						Executing = true;
-						WorkingQueue = actor;
 						WorkingActor = ActorId;
 						WorkingPrivateState = _ActorsPrivateState.get(ActorId);
 						_Actors.notifyAll();//Wake the threads waiting on this vector of queue
@@ -154,16 +156,17 @@ public class ActorThreadPool {
 				try {
 					this._version.await(_version.getVersion());
 				} catch (InterruptedException e) {//A thread has just Completed a Turn
+
 				}
 			} else {//Executing = true means we need to exe an action
-				try {//because of Interrupt exception throw fromm queue
-					Action Act = WorkingQueue.dequeue();
-					WorkingPrivateState.addRecord(Act.getActionName());
-					Act.handle(this, WorkingActor, WorkingPrivateState);
-				} catch (InterruptedException e) {}
+				//because of Interrupt exception throw fromm queue
+				WorkingPrivateState.addRecord(Act.getActionName());
+				Act.handle(this, WorkingActor, WorkingPrivateState);
+
 				_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
 				_version.inc();
 			}
+			Thread.currentThread().interrupt();
 		}
 	}
 

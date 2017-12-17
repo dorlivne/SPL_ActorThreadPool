@@ -29,7 +29,7 @@ public class OpenANewCourse extends Action<Boolean> {
 
     @Override
     protected void start() {
-        System.out.println("Opening course");
+        System.out.println("Opening course" + "   " + Thread.currentThread().toString());
         ((CoursePrivateState)this.ActorState).setPrequisites(this.prequisites);
         ((CoursePrivateState)this.ActorState).setAvailableSpots(this.availableSpots);
         List<Action<Boolean>> actions = new ArrayList<>();
@@ -41,7 +41,7 @@ public class OpenANewCourse extends Action<Boolean> {
             if(result == true) {
                 complete(true);
                 this.ActorState.addRecord(getActionName());
-                System.out.println("course " + this.courseName + " opened with " + this.availableSpots + " places");
+                System.out.println("course " + this.courseName + " opened with " + this.availableSpots + " places" + "   " + Thread.currentThread().toString());
             }
             else{
                 complete(false);
