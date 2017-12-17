@@ -21,7 +21,7 @@ public class CloseCourse extends Action{
 
     @Override
     protected void start() {
-        System.out.println("Closing course " + this.CourseName + "   " + Thread.currentThread().toString());
+        System.out.println("Closing course " + this.CourseName);
         List<Action<Boolean>> actions = new ArrayList<>();
         Action<Boolean> CloseCourseConfirmation = new CloseCourseConfirmation(this.CourseName);
         actions.add(CloseCourseConfirmation);
@@ -38,7 +38,7 @@ public class CloseCourse extends Action{
                     ((CoursePrivateState) this.ActorState).setAvailableSpots(-1);
                     complete(true);
                     this.ActorState.addRecord(getActionName());
-                    System.out.println("The course: " + this.CourseName + " is close" + "   " + Thread.currentThread().toString());
+                    System.out.println("The course: " + this.CourseName + " is close");
                 }
             }
             else{

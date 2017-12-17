@@ -5,6 +5,7 @@ package bgu.spl.a2;
 import sun.misc.Queue;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * represents an actor thread pool - to understand what this class does please
@@ -20,9 +21,9 @@ public class ActorThreadPool {
 	private Vector<Thread> _Threads = new Vector<>();
 	private boolean shutdown = false;
 	private Vector<Queue<Action>> _Actors = new Vector<>();
-	private Vector<String>   _ActorsId = new Vector<>();
-	private HashMap<String,Boolean>  _ActorsOccupied = new HashMap<>();
-	private HashMap<String,PrivateState> _ActorsPrivateState = new HashMap<>();
+	private Vector<String>  _ActorsId = new Vector<>();
+	private ConcurrentHashMap<String,Boolean> _ActorsOccupied = new ConcurrentHashMap<>();
+	private ConcurrentHashMap<String,PrivateState> _ActorsPrivateState = new ConcurrentHashMap<>();
 	private VersionMonitor _version;
 	private Object Lock = new Object();
 
@@ -57,32 +58,27 @@ public class ActorThreadPool {
 	 * @param actorState actor's private state (actor's information)
 	 */
 	/*
-	the reason for the Lock-sync is that i want to avoid a situation where a thread enters this function searches for the actor not finding it
+	the reason for the sync is that i want to avoid a situation where a thread enters this function searches for the actor not finding it
 	and creating a new actor , there can be a situation where two threads enter this func and two of the create the same actor
 	 */
 	public void submit(Action<?> action, String actorId, PrivateState actorState) {
-		boolean Submitted = false;
-		for (int i = 0; i < _Actors.size() & !Submitted; i++) {
-			if (_ActorsId.get(i).equals(actorId)) {
-				_Actors.get(i).enqueue(action);
-				Submitted = true;
-			}
-		}//Actor Not found
-		if (!Submitted) {
-			synchronized (Lock){//TODO Is this needed??
-				if(_ActorsPrivateState.containsKey(actorId)){//means some other thread already added this actor
-					submit(action,actorId,actorState);
-					Lock.notifyAll();
-					return;
+		synchronized (_Actors) {
+			boolean Submitted = false;
+			for (int i = 0; i < _Actors.size() & !Submitted; i++) {
+				if (_ActorsId.get(i).equals(actorId)) {
+					_Actors.get(i).enqueue(action);
+					Submitted = true;
 				}
+			}//Actor Not found
+			if (!Submitted) {
 				Queue<Action> x = new Queue<>();
 				x.enqueue(action);
 				_Actors.add(x);//Add the Queue of Actions to The vector
 				_ActorsId.add(actorId);//now we need to add the name and private state to the appropriate queue
-				_ActorsOccupied.put(actorId,false);
-				_ActorsPrivateState.put(actorId,actorState);
-				Lock.notifyAll();
+				_ActorsOccupied.put(actorId, false);
+				_ActorsPrivateState.put(actorId, actorState);
 			}
+			_Actors.notifyAll();
 		}
 		_version.inc();//updates pool's version
 	}
@@ -97,6 +93,7 @@ public class ActorThreadPool {
 	 * @throws InterruptedException if the thread that shut down the threads is interrupted
 	 */
 	public void shutdown() throws InterruptedException {
+		shutdown = true;
 		for (Thread thread : _Threads)
 			thread.interrupt();//All threads listen in
 		for (Thread thread : _Threads)
@@ -134,6 +131,7 @@ public class ActorThreadPool {
 			String WorkingActor = null;
 			PrivateState WorkingPrivateState = null;
 			Action Act = null;
+			int currentversion = this._version.getVersion();
 			synchronized (_Actors) {//Looking for available queue
 				Iterator<Queue<Action>> actorIterator = _Actors.iterator();
 				Iterator<String> actorIdIterator = _ActorsId.iterator();
@@ -148,21 +146,21 @@ public class ActorThreadPool {
 						Executing = true;
 						WorkingActor = ActorId;
 						WorkingPrivateState = _ActorsPrivateState.get(ActorId);
-						_Actors.notifyAll();//Wake the threads waiting on this vector of queue
 					}
 				}
+				currentversion = this._version.getVersion();
+				_Actors.notifyAll();//Wake the threads waiting on this vector of queue
 			}//only one thread goes through the vector the reason is an exception thrown by the iterator
 			if (!Executing) {//No available Actors
 				try {
-					this._version.await(_version.getVersion());
+					this._version.await(currentversion);
 				} catch (InterruptedException e) {//A thread has just Completed a Turn
-
+					Thread.currentThread().interrupt();
 				}
 			} else {//Executing = true means we need to exe an action
 				//because of Interrupt exception throw fromm queue
 				WorkingPrivateState.addRecord(Act.getActionName());
 				Act.handle(this, WorkingActor, WorkingPrivateState);
-
 				_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
 				_version.inc();
 			}

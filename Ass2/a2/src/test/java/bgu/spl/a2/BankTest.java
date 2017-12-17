@@ -88,36 +88,52 @@ class Transmission extends Action{
 public class BankTest {
 
     public static void main(String[] args) throws InterruptedException {
-        /*ActorThreadPool pool = new ActorThreadPool(6);
-        pool.start();
-        Action<String> trans = new Transmission(100,"A","B","bank1","bank2",new PrivateState(){});
-        Action<String> trans1 = new Transmission(100,"B","A","bank2","bank1",new PrivateState(){});
-        Action<String> trans2 = new Transmission(100,"A","B","bank1","bank3",new PrivateState(){});
-        Action<String> trans3 = new Transmission(100,"A","B","bank3","bank2",new PrivateState(){});
-        Action<String> trans4 = new Transmission(100,"C","B","bank2","bank3",new PrivateState(){});
-        Action<String> trans5 = new Transmission(100,"A","B","bank1","bank2",new PrivateState(){});
-        pool.submit(trans1,"bank2",new PrivateState() {});
-        pool.submit(trans,"bank1",new PrivateState() {});
-    //    pool.start();
-        pool.submit(trans2,"bank1",new PrivateState() {});
-        pool.submit(trans3,"bank3",new PrivateState() {});
-        pool.submit(trans4,"bank2",new PrivateState() {});
-        pool.submit(trans5,"bank1",new PrivateState() {});
+        for (int i = 0; i < 1000; i++) {
+            ActorThreadPool pool = new ActorThreadPool(6);
+            pool.start();
+            Action<String> trans = new Transmission(100, "A", "B", "bank1", "bank2", new PrivateState() {
+            });
+            Action<String> trans1 = new Transmission(100, "B", "A", "bank2", "bank1", new PrivateState() {
+            });
+            Action<String> trans2 = new Transmission(100, "A", "B", "bank1", "bank3", new PrivateState() {
+            });
+            Action<String> trans3 = new Transmission(100, "A", "B", "bank3", "bank2", new PrivateState() {
+            });
+            Action<String> trans4 = new Transmission(100, "C", "B", "bank2", "bank3", new PrivateState() {
+            });
+            Action<String> trans5 = new Transmission(100, "A", "B", "bank1", "bank2", new PrivateState() {
+            });
+            pool.submit(trans1, "bank2", new PrivateState() {
+            });
+            pool.submit(trans, "bank1", new PrivateState() {
+            });
+            //    pool.start();
+            pool.submit(trans2, "bank1", new PrivateState() {
+            });
+            pool.submit(trans3, "bank3", new PrivateState() {
+            });
+            pool.submit(trans4, "bank2", new PrivateState() {
+            });
+            pool.submit(trans5, "bank1", new PrivateState() {
+            });
 
-        CountDownLatch l = new CountDownLatch(6);
-        trans.getResult().subscribe(()-> l.countDown());
-        trans1.getResult().subscribe(()-> l.countDown());
-        trans2.getResult().subscribe(()-> l.countDown());
-        trans3.getResult().subscribe(()-> l.countDown());
-        trans4.getResult().subscribe(()-> l.countDown());
-        trans5.getResult().subscribe(()-> l.countDown());
-        try {
-            l.await();
-        } catch (InterruptedException e) {
+            CountDownLatch l = new CountDownLatch(6);
+            trans.getResult().subscribe(() -> l.countDown());
+            trans1.getResult().subscribe(() -> l.countDown());
+            trans2.getResult().subscribe(() -> l.countDown());
+            trans3.getResult().subscribe(() -> l.countDown());
+            trans4.getResult().subscribe(() -> l.countDown());
+            trans5.getResult().subscribe(() -> l.countDown());
+            try {
+                l.await();
+            } catch (InterruptedException e) {
+            }
+            System.out.println(i);
+            pool.shutdown();
         }
-        pool.shutdown();
-    }*/
-        for ( int i = 0; i < 5; i++) {
+    }
+}
+      /*  for ( int i = 0; i < 5; i++) {
             System.out.println(Thread.currentThread().toString());
             ActorThreadPool pool = new ActorThreadPool(5);
             Action<Boolean> AddStudent0 = new AddStudent("CS", "Tom");
@@ -191,13 +207,13 @@ public class BankTest {
             System.out.println("END OF TEST");
         }
 }
+*/
 
-
-   /*     for (int i=0 ; i<100000 ; i++) {
-            ActorThreadPool pool = new ActorThreadPool(8);
+    /*    for (int i=0 ; i<100000 ; i++) {
+            ActorThreadPool pool = new ActorThreadPool(10);
             pool.start();
 
-            Action<Boolean> OpenCourse0 = new OpenANewCourse ("CS" ,15 , new Vector<String>());
+            Action<Boolean> OpenCourse0 = new OpenANewCourse ("abc" ,15 , new Vector<String>(),"CS");
             pool.submit(OpenCourse0, "DataStructers", new CoursePrivateState());
 
             CountDownLatch l1 = new CountDownLatch(1);
@@ -233,7 +249,7 @@ public class BankTest {
             pool.submit(AddStudent10, "Yair", new StudentPrivateState());
             pool.submit(AddStudent11, "David", new StudentPrivateState());
 
-            Action<Boolean> PartInCourse0 = new ParticipateInCourse("Tom,""DataStructers", 100);
+            Action<Boolean> PartInCourse0 = new ParticipateInCourse("Tom,","DataStructers", 100);
             Action<Boolean> PartInCourse1 = new ParticipateInCourse("Dor" , "DataStructers", 88);
             Action<Boolean> PartInCourse2 = new ParticipateInCourse("Amit","DataStructers", 75);
             Action<Boolean> PartInCourse3 = new ParticipateInCourse("Sasha","DataStructers", 87);
@@ -292,12 +308,13 @@ public class BankTest {
             try {
                 l.await();
             } catch (InterruptedException e) {
+                System.out.println("cnajskakj.sd saklmdsal");
             }
 
             HashMap<String,Computer> computers = new HashMap<>();
-            computers.put("A",new Computer("A"));
-            computers.put("B",new Computer("B"));
-            computers.put("C",new Computer("C"));
+            computers.put("A",new Computer("A",-1,1));
+            computers.put("B",new Computer("B",-2,2));
+            computers.put("C",new Computer("C",-3,3));
             computers.get("A").setSig(-1,1);
             computers.get("B").setSig(-2,2);
             computers.get("C").setSig(-3,3);
@@ -377,9 +394,10 @@ public class BankTest {
             try {
                 l4.await();
             } catch (InterruptedException e) {
+                System.out.println("12345678915616548915616");
             }
-
-            pool.shutdown();
+            System.out.println("END OF TEST");
+           pool.shutdown();
         }
         System.out.println("END OF TEST");
     }

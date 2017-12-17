@@ -24,9 +24,9 @@ public class VersionMonitor {
     private AtomicInteger version = new AtomicInteger();//The initial version equals to zero
 
 
-    public synchronized int getVersion() {
-            return version.intValue();
-        }
+    public int getVersion() {
+        return version.intValue();
+    }
 
 
     public synchronized void inc() {
@@ -40,10 +40,10 @@ public class VersionMonitor {
      * @throws InterruptedException
      */
     public synchronized void await(int version) throws InterruptedException {
-        while(this.getVersion() == version) {//we wait until the version of our objects equals to the needed version
-                this.wait();
+        while( getVersion() == version) {//we wait until the version of our objects equals to the needed version
+            this.wait();
         }
-     // throw new InterruptedException();
+        //    throw new InterruptedException();
 
     }
 }

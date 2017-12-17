@@ -28,7 +28,7 @@ public class AddStudent extends Action{
             if(result == true) {
                 complete(true);
                 this.ActorState.addRecord(getActionName());
-                System.out.println("Student: " + this.studentID + " added" + "   " + Thread.currentThread().toString());
+                System.out.println("Student: " + this.studentID + " added");
             }
             else{
                 complete(false);
