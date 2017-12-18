@@ -159,7 +159,7 @@ public class ActorThreadPool {
 				} catch (InterruptedException e) {//A thread has just Completed a Turn
 				}
 			} else {//Executing = true means we need to exe an action
-					WorkingPrivateState.addRecord(Act.getActionName());
+				//	WorkingPrivateState.addRecord(Act.getActionName());
 					Act.handle(this, WorkingActor, WorkingPrivateState);
 					_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
 					_version.inc();

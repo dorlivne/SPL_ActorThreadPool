@@ -46,10 +46,10 @@ public class Computer {
 			}
 		}
 		if(Passed.toString().equals("true")  && HasCourse.toString().equals("true")){
-			return 1;
+			return successSig;
 		}
 		else
-			return 0;
+			return failSig;
 
 	}
 

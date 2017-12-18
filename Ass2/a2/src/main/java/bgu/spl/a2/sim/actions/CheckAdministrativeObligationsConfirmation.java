@@ -7,11 +7,11 @@ import bgu.spl.a2.sim.privateStates.StudentPrivateState;
 import java.util.HashMap;
 import java.util.List;
 
-public class CheckRequirments extends Action {
+public class CheckAdministrativeObligationsConfirmation extends Action {
     private Computer _comp;
     private List<String> _Conditions;
 
-    public CheckRequirments(List<String> Conditions , Computer comp){
+    public CheckAdministrativeObligationsConfirmation(List<String> Conditions , Computer comp){
         this._Conditions = Conditions;
         this._comp = comp;
     }

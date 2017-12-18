@@ -192,8 +192,8 @@ public class BankTest {
 }*/
 
 
-        for (int i=0 ; i<2 ; i++) {
-            ActorThreadPool pool = new ActorThreadPool(900);
+        for (int i=0 ; i<1 ; i++) {
+            ActorThreadPool pool = new ActorThreadPool(5);
             pool.start();
 
             Action<Boolean> OpenCourse0 = new OpenANewCourse("DataStructers", 15,new Vector<String>(), "CS");
@@ -233,17 +233,17 @@ public class BankTest {
             pool.submit(AddStudent11, "David", new StudentPrivateState());
 
             Action<Boolean> PartInCourse0 = new ParticipateInCourse("Tom","DataStructers", 10);
-            Action<Boolean> PartInCourse1 = new ParticipateInCourse("Dor" , "DataStructers", 8);
-            Action<Boolean> PartInCourse2 = new ParticipateInCourse("Amit","DataStructers", 7);
-            Action<Boolean> PartInCourse3 = new ParticipateInCourse("Sasha","DataStructers", 8);
-            Action<Boolean> PartInCourse4 = new ParticipateInCourse("Shir1","DataStructers", 4);
-            Action<Boolean> PartInCourse5 = new ParticipateInCourse("Shir2","DataStructers", 3);
-            Action<Boolean> PartInCourse6 = new ParticipateInCourse("Aviran","DataStructers", 10);
-            Action<Boolean> PartInCourse7 = new ParticipateInCourse("Biran","DataStructers", 8);
-            Action<Boolean> PartInCourse8 = new ParticipateInCourse("Hoze","DataStructers", 7);
-            Action<Boolean> PartInCourse9 = new ParticipateInCourse("Bibi","DataStructers", 8);
-            Action<Boolean> PartInCourse10 = new ParticipateInCourse("Yair","DataStructers", 4);
-            Action<Boolean> PartInCourse11 = new ParticipateInCourse("David","DataStructers", 3);
+            Action<Boolean> PartInCourse1 = new ParticipateInCourse("Dor" , "DataStructers", 20);
+            Action<Boolean> PartInCourse2 = new ParticipateInCourse("Amit","DataStructers", 30);
+            Action<Boolean> PartInCourse3 = new ParticipateInCourse("Sasha","DataStructers", 40);
+            Action<Boolean> PartInCourse4 = new ParticipateInCourse("Shir1","DataStructers", 50);
+            Action<Boolean> PartInCourse5 = new ParticipateInCourse("Shir2","DataStructers", 60);
+            Action<Boolean> PartInCourse6 = new ParticipateInCourse("Aviran","DataStructers", 70);
+            Action<Boolean> PartInCourse7 = new ParticipateInCourse("Biran","DataStructers", 80);
+            Action<Boolean> PartInCourse8 = new ParticipateInCourse("Hoze","DataStructers", 90);
+            Action<Boolean> PartInCourse9 = new ParticipateInCourse("Bibi","DataStructers", 100);
+            Action<Boolean> PartInCourse10 = new ParticipateInCourse("Yair","DataStructers", 101);
+            Action<Boolean> PartInCourse11 = new ParticipateInCourse("David","DataStructers", 120);
 
             pool.submit(PartInCourse0, "Tom", new StudentPrivateState());
             pool.submit(PartInCourse1, "Dor", new StudentPrivateState());
@@ -253,10 +253,10 @@ public class BankTest {
             pool.submit(PartInCourse5, "Shir2", new StudentPrivateState());
             pool.submit(PartInCourse6, "Aviran", new StudentPrivateState());
             pool.submit(PartInCourse7, "Biran", new StudentPrivateState());
-            pool.submit(PartInCourse8, "Bibi", new StudentPrivateState());
-            pool.submit(PartInCourse9, "David", new StudentPrivateState());
-            pool.submit(PartInCourse10, "Hoze", new StudentPrivateState());
-            pool.submit(PartInCourse11, "Yair", new StudentPrivateState());
+            pool.submit(PartInCourse8, "Hoze", new StudentPrivateState());
+            pool.submit(PartInCourse9, "Bibi", new StudentPrivateState());
+            pool.submit(PartInCourse10, "Yair", new StudentPrivateState());
+            pool.submit(PartInCourse11, "David", new StudentPrivateState());
 
             Action<Boolean> AddNewPlace = new AddSpaces("DataStructers", 30);
 

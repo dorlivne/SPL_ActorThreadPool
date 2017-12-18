@@ -1,9 +1,7 @@
 package bgu.spl.a2.sim.actions;
 
 import bgu.spl.a2.Action;
-import bgu.spl.a2.ActorThreadPool;
 import bgu.spl.a2.Promise;
-import bgu.spl.a2.callback;
 import bgu.spl.a2.sim.Computer;
 import bgu.spl.a2.sim.Warehouse;
 
@@ -33,14 +31,22 @@ public class CheckAdministrativeObligations extends Action {
                 Computer comp = computer.get();
                 List<Action<Boolean>> actions = new ArrayList<>();
                 for (String s : _StudentsId) {
-                    Action<Boolean> Check = new CheckRequirments(_Condition,comp);
+                    Action<Boolean> Check = new CheckAdministrativeObligationsConfirmation(_Condition,comp);
                     actions.add(Check);
                     sendMessage(Check,s,new StudentPrivateState());//this submit the action to the pool should be enqueue in the students actor rqueue
                 }
                then(actions, ()-> {
-                    comp.Release();
-                    complete(true);
-                    System.out.println("Check administrative done");
+                   comp.Release();
+                   for (String pref : _StudentsId) {
+                       Boolean result = actions.get(_StudentsId.indexOf(pref)).getResult().get();
+                       if (result == true) {
+                           complete(true);
+                           System.out.println("Check administrative done " + pref);
+                       }else{
+                           complete(false);
+                           System.out.println("Check administrative failed " + pref);
+                       }
+                   }
                      });
         });
     }

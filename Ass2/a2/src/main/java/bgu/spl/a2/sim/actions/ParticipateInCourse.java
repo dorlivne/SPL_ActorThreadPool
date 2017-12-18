@@ -18,16 +18,16 @@ public class ParticipateInCourse extends Action {
         this.studentID = studentID;
         this.courseName = courseName;
         this.grade = grade;
-        this.setActionName("Participate In Course");
+        this.setActionName("Participate In Course " + this.studentID +" " + grade);
     }
 
     @Override
     protected void start() {
-        System.out.println("Registering Student - no Pref");
+        System.out.println("Registering Student - no Pref -" + this.studentID);
         List<Action<Boolean>> actions = new ArrayList<>();
         Action<Boolean> ParticipateInCourseConfirmation = new ParticipateInCourseConfirmation(this.studentID,this.courseName,((StudentPrivateState)this.ActorState).getGrades());
         actions.add(ParticipateInCourseConfirmation);
-        sendMessage(ParticipateInCourseConfirmation,this.courseName, new CoursePrivateState());
+        sendMessage(ParticipateInCourseConfirmation,this.courseName, this.pool.getPrivateStates(this.courseName));
         then(actions,()->{
             Boolean result = actions.get(0).getResult().get();
             if(result == true) {
