@@ -17,7 +17,7 @@ public class CoursePrivateState extends PrivateState{
 	private Integer registered;
 	private List<String> regStudents;
 	private List<String> prequisites;
-	
+
 	/**
  	 * Implementors note: you may not add other constructors to this class nor
 	 * you allowed to add any other parameter to this constructor - changing
@@ -26,8 +26,8 @@ public class CoursePrivateState extends PrivateState{
 	public CoursePrivateState() {
 		this.availableSpots = 0;
 		this.registered = 0;
-		this.regStudents = new Vector<>();
-		this.prequisites = new Vector<>();
+		this.regStudents = new LinkedList<>();
+		this.prequisites = new LinkedList<>();
 		//TODO: replace method body with real implementation
 		//throw new UnsupportedOperationException("Not Implemented Yet.");
 	}
@@ -48,7 +48,7 @@ public class CoursePrivateState extends PrivateState{
 		return prequisites;
 	}
 
-	public void setPrequisites(Vector<String> prequisites){ this.prequisites = prequisites; }
+	public void setPrequisites(List<String> prequisites){ this.prequisites = prequisites; }
 
 	public void setAvailableSpots(int spaces){ this.availableSpots = spaces; }
 
@@ -74,12 +74,14 @@ public class CoursePrivateState extends PrivateState{
 
 		AtomicBoolean HasCourse = new AtomicBoolean(true);
 		if(preCourses.size()>0) {
-			String X = ((List<String>) preCourses).get(0);
+			String X =  preCourses.get(0);
 			for (int index = 0; index < preCourses.size(); index++) {
 				if (!grades.containsKey(X)) {//dosen't contain
 					HasCourse.set(false);
 					break;
 				}
+				else if (preCourses.indexOf(X) < preCourses.size() - 1)
+					X = preCourses.get(index + 1);
 			}
 		}
 		if(HasCourse.toString() == "true"){
