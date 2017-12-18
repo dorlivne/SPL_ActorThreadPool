@@ -4,14 +4,22 @@
     <list default="true" id="3447177c-ac9d-4e34-b33d-3325d1bec296" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/ActorThreadPool.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/ActorThreadPool.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/Promise.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/Promise.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/VersionMonitor.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/VersionMonitor.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/SuspendingMutex.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/SuspendingMutex.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Warehouse.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Warehouse.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/AddStudent.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/AddStudent.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CloseCourse.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CloseCourse.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/OpenANewCourse.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/OpenANewCourse.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CheckAdministrativeObligations.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CheckAdministrativeObligations.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/ParticipateInCourse.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/ParticipateInCourse.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/privateStates/StudentPrivateState.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/privateStates/StudentPrivateState.java" />
       <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/a2/BankTest.java" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/a2/BankTest.java" />
       <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/ActorThreadPool.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/ActorThreadPool.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/Promise.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/Promise.class" />
       <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/VersionMonitor.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/VersionMonitor.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/Computer.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/Computer.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/SuspendingMutex.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/SuspendingMutex.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/privateStates/StudentPrivateState.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/sim/privateStates/StudentPrivateState.class" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/BankTest.class" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/BankTest.class" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -32,16 +40,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="BankTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BankTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/bgu/spl/a2/BankTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="129" column="13" lean-forward="false" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
+            <state relative-caret-position="258">
+              <caret line="346" column="62" lean-forward="true" selection-start-line="346" selection-start-column="62" selection-end-line="346" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1531#1532#0" expanded="true" />
                 <element signature="e#1556#1557#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CheckRequirments.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CheckRequirments.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Computer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CheckAdministrativeObligations.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CheckAdministrativeObligations.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="32" column="42" lean-forward="false" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -117,7 +155,6 @@
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Simulator.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/PrivateState.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/AddSpaces.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/SuspendingMutex.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Warehouse.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/privateStates/StudentPrivateState.java" />
@@ -127,7 +164,9 @@
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/OpenANewCourse.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/VersionMonitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/ParticipateInCourse.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java" />
         <option value="$PROJECT_DIR$/src/test/java/bgu/spl/a2/BankTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CheckAdministrativeObligations.java" />
       </list>
     </option>
   </component>
@@ -164,7 +203,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -265,9 +306,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -568,7 +607,14 @@
       <option name="project" value="LOCAL" />
       <updated>1513544977797</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Sync + nullptr">
+      <created>1513550808654</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1513550808654</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -623,26 +669,26 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36062992" sideWeight="0.50322235" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4493464" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329429" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31927025" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3237519" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2934947" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5964052" sideWeight="0.49677765" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35620916" sideWeight="0.49677765" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329429" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -691,14 +737,25 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/bgu/spl/a2/BankTest.java</url>
+          <line>361</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="134" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="132" />
+      <option name="time" value="135" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="((ActorThreadPool)this.arg$1).shutdown" custom="bgu.spl.a2.ActorThreadPool,java.lang.Runnable" />
+        <watch expression="pool" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
@@ -712,8 +769,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/util/concurrent/locks/AbstractQueuedSynchronizer.java" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/util/concurrent/CountDownLatch.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/jre/lib/rt.jar!/sun/misc/Queue.class" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/src.zip!/java/lang/InterruptedException.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -881,16 +936,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/Promise.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-765">
-          <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
-          <folding>
-            <marker date="1512917765435" expanded="true" signature="3196:3199" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/src.zip!/java/util/LinkedList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -943,28 +988,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="284" column="32" lean-forward="false" selection-start-line="284" selection-start-column="32" selection-end-line="284" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/SuspendingMutex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="74" column="0" lean-forward="true" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Warehouse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#607#608#0" expanded="false" />
-            <element signature="e#649#650#0" expanded="false" />
-            <element signature="e#713#714#0" expanded="false" />
-            <element signature="e#774#775#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -974,29 +997,16 @@
           <caret line="40" column="4" lean-forward="false" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#740#741#0" expanded="false" />
-            <element signature="e#760#761#0" expanded="false" />
-            <element signature="e#791#792#0" expanded="false" />
-            <element signature="e#814#815#0" expanded="false" />
-            <element signature="e#877#878#0" expanded="false" />
-            <element signature="e#912#913#0" expanded="false" />
-            <element signature="e#959#960#0" expanded="false" />
-            <element signature="e#991#992#0" expanded="false" />
-            <element signature="e#1029#1030#0" expanded="false" />
-            <element signature="e#1056#1057#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="17" column="11" lean-forward="false" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
-          <folding>
-            <element signature="e#1523#1524#0" expanded="false" />
-            <element signature="e#1543#1544#0" expanded="false" />
-            <element signature="e#1573#1574#0" expanded="false" />
-            <element signature="e#1597#1598#0" expanded="false" />
+            <element signature="e#618#619#0" expanded="false" />
+            <element signature="e#638#639#0" expanded="false" />
+            <element signature="e#669#670#0" expanded="false" />
+            <element signature="e#692#693#0" expanded="false" />
+            <element signature="e#755#756#0" expanded="false" />
+            <element signature="e#790#791#0" expanded="false" />
+            <element signature="e#837#838#0" expanded="false" />
+            <element signature="e#869#870#0" expanded="false" />
+            <element signature="e#907#908#0" expanded="false" />
+            <element signature="e#934#935#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1005,7 +1015,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="69" column="6" lean-forward="false" selection-start-line="69" selection-start-column="6" selection-end-line="69" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1021,7 +1030,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3366">
           <caret line="266" column="13" lean-forward="false" selection-start-line="266" selection-start-column="13" selection-end-line="266" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1029,7 +1037,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="82" column="13" lean-forward="false" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1053,12 +1060,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="89" column="21" lean-forward="false" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
-          <folding>
-            <element signature="e#2032#2033#0" expanded="false" />
-            <element signature="e#2060#2061#0" expanded="false" />
-            <element signature="e#8850#8851#0" expanded="false" />
-            <element signature="e#8878#8879#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1091,9 +1092,8 @@
         <state relative-caret-position="187">
           <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
-            <element signature="e#970#971#0" expanded="false" />
-            <element signature="e#1011#1012#0" expanded="false" />
-            <marker date="1513550079421" expanded="true" signature="1639:1645" ph="{...}" />
+            <element signature="e#999#1000#0" expanded="false" />
+            <marker date="1513582924110" expanded="true" signature="1713:1719" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1112,21 +1112,74 @@
           <caret line="138" column="63" lean-forward="true" selection-start-line="138" selection-start-column="63" selection-end-line="138" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#3768#3769#0" expanded="false" />
-            <element signature="e#3801#3802#0" expanded="false" />
+            <element signature="e#3899#3900#0" expanded="false" />
+            <element signature="e#3932#3933#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CheckRequirments.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/bgu/spl/a2/BankTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="129" column="13" lean-forward="false" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
+        <state relative-caret-position="258">
+          <caret line="346" column="62" lean-forward="true" selection-start-line="346" selection-start-column="62" selection-end-line="346" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1531#1532#0" expanded="true" />
             <element signature="e#1556#1557#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/SuspendingMutex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-45">
+          <caret line="39" column="29" lean-forward="false" selection-start-line="39" selection-start-column="29" selection-end-line="39" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Warehouse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#713#714#0" expanded="true" />
+            <element signature="e#778#779#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/Promise.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6">
+          <caret line="33" column="14" lean-forward="false" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
+          <folding>
+            <marker date="1513582252156" expanded="true" signature="3341:3344" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CheckAdministrativeObligations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="32" column="42" lean-forward="false" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -29,9 +29,7 @@ public class CheckAdministrativeObligations extends Action {
     @Override
     protected void start() {
         Promise<Computer> computer = _Warehouse.GetComputer(_CompId);
-        computer.subscribe(new callback() {//once we got a computer we can proceed
-            @Override
-            public void call() {
+        computer.subscribe(()-> {//once we got a computer we can proceed
                 Computer comp = computer.get();
                 List<Action<Boolean>> actions = new ArrayList<>();
                 for (String s : _StudentsId) {
@@ -44,7 +42,6 @@ public class CheckAdministrativeObligations extends Action {
                     complete(true);
                     System.out.println("Check administrative done");
                      });
-            }
         });
     }
 }

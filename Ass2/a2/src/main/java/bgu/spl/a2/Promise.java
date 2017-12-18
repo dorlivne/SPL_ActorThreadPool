@@ -63,7 +63,8 @@ private LinkedList<callback> callBacks = new LinkedList<>();
 	 * @param value
 	 *            - the value to resolve this promise object with
 	 */
-	public void resolve(T value){
+	public  void resolve(T value){
+		synchronized (callBacks){
 		result =  value;
 		this.resolved = true;
 		int index = 0;//current index in the list
@@ -72,7 +73,9 @@ private LinkedList<callback> callBacks = new LinkedList<>();
 			//this.callBacks.remove(index);
 			index++;
 		}
+		callBacks.notifyAll();
 		//callBacks = null;//possible error - how to re-define it? / done because of possible memory leak
+	}
 	}
 
 	/**
@@ -88,10 +91,14 @@ private LinkedList<callback> callBacks = new LinkedList<>();
 	 * @param callback
 	 *            the callback to be called when the promise object is resolved
 	 */
-	public void subscribe(callback callback) {
-		if(!this.isResolved())
-			this.callBacks.add(callback);
-		else
+	public   void subscribe(callback callback) {
+		synchronized (callBacks) {
+			if(!this.isResolved()) {
+				this.callBacks.add(callback);
+				callBacks.notifyAll();
+			}
+		}
+		if(this.isResolved())
 			callback.call();
 
 

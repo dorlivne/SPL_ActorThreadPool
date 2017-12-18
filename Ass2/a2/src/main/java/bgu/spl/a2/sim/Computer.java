@@ -57,9 +57,11 @@ public class Computer {
 		this.failSig=failSig;
 		this.successSig=successSig;
 	}
+
 	public void Release(){
 		this.Key.up();
 	}
+
 	public long getSuccessSig(){
 		return successSig;
 	}

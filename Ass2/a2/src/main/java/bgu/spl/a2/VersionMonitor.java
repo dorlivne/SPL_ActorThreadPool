@@ -22,11 +22,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class VersionMonitor {
 
     private AtomicInteger version = new AtomicInteger();//The initial version equals to zero
-
+    boolean shutdown = false;
 
     public int getVersion() {
-        return version.intValue();
-    }
+            return version.get();
+        }
 
 
     public synchronized void inc() {
@@ -40,10 +40,11 @@ public class VersionMonitor {
      * @throws InterruptedException
      */
     public synchronized void await(int version) throws InterruptedException {
-        while( getVersion() == version) {//we wait until the version of our objects equals to the needed version
-            this.wait();
+        while(!shutdown && version == this.getVersion() ) {//we wait until the version of our objects equals to the needed version
+                this.wait();
         }
-        //    throw new InterruptedException();
+        this.notifyAll();
+        throw new InterruptedException();
 
     }
 }

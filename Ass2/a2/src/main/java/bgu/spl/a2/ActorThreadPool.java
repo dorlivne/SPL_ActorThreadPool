@@ -20,7 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ActorThreadPool {
 	private Vector<Thread> _Threads = new Vector<>();
 	private boolean shutdown = false;
-	private Vector<Queue<Action>> _Actors = new Vector<>();
+	//private Vector<Queue<Action>> _Actors = new Vector<>();
+	private ConcurrentHashMap<String,Queue<Action>> _Actors = new ConcurrentHashMap<>();
 	private Vector<String>  _ActorsId = new Vector<>();
 	private ConcurrentHashMap<String,Boolean> _ActorsOccupied = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<String,PrivateState> _ActorsPrivateState = new ConcurrentHashMap<>();
@@ -64,23 +65,24 @@ public class ActorThreadPool {
 	public void submit(Action<?> action, String actorId, PrivateState actorState) {
 		synchronized (_Actors) {
 			boolean Submitted = false;
-			for (int i = 0; i < _Actors.size() & !Submitted; i++) {
+			for (int i = 0; i < _ActorsId.size() & !Submitted; i++) {
 				if (_ActorsId.get(i).equals(actorId)) {
-					_Actors.get(i).enqueue(action);
+					_Actors.get(_ActorsId.get(i)).enqueue(action);
 					Submitted = true;
 				}
 			}//Actor Not found
 			if (!Submitted) {
-				Queue<Action> x = new Queue<>();
-				x.enqueue(action);
-				_Actors.add(x);//Add the Queue of Actions to The vector
+				 Queue<Action> x = new Queue<>();
+				 x.enqueue(action);
 				_ActorsId.add(actorId);//now we need to add the name and private state to the appropriate queue
+				_Actors.put(actorId,x);
+			//	_Actors.add(x);
 				_ActorsOccupied.put(actorId, false);
 				_ActorsPrivateState.put(actorId, actorState);
 			}
+			_version.inc();//updates pool's version
 			_Actors.notifyAll();
 		}
-		_version.inc();//updates pool's version
 	}
 
 	/**
@@ -94,6 +96,7 @@ public class ActorThreadPool {
 	 */
 	public void shutdown() throws InterruptedException {
 		shutdown = true;
+		this._version.shutdown = true;
 		for (Thread thread : _Threads)
 			thread.interrupt();//All threads listen in
 		for (Thread thread : _Threads)
@@ -131,15 +134,14 @@ public class ActorThreadPool {
 			String WorkingActor = null;
 			PrivateState WorkingPrivateState = null;
 			Action Act = null;
-			int currentversion = this._version.getVersion();
-			synchronized (_Actors) {//Looking for available queue
-				Iterator<Queue<Action>> actorIterator = _Actors.iterator();
+			int currentversion;
+			synchronized (_Actors) {//Looking for available queue only one thread can use this field at any moment
 				Iterator<String> actorIdIterator = _ActorsId.iterator();
-				while (actorIterator.hasNext() && !Executing) {
-					Queue<Action> actor = actorIterator.next();
+				while (actorIdIterator.hasNext() && !Executing) {
 					String ActorId = actorIdIterator.next();
+					Queue<Action> actor = _Actors.get(ActorId);
 					if (!_ActorsOccupied.get(ActorId) && !actor.isEmpty()) {//Available queue with actions in it
-						_ActorsOccupied.put(ActorId,true);
+						_ActorsOccupied.put(ActorId,true);//this queue is occupied
 						try {
 							Act = actor.dequeue();
 						}catch(InterruptedException e){System.out.println("WTF");}
@@ -155,16 +157,15 @@ public class ActorThreadPool {
 				try {
 					this._version.await(currentversion);
 				} catch (InterruptedException e) {//A thread has just Completed a Turn
-					Thread.currentThread().interrupt();
 				}
 			} else {//Executing = true means we need to exe an action
-				//because of Interrupt exception throw fromm queue
-				WorkingPrivateState.addRecord(Act.getActionName());
-				Act.handle(this, WorkingActor, WorkingPrivateState);
-				_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
-				_version.inc();
+					WorkingPrivateState.addRecord(Act.getActionName());
+					Act.handle(this, WorkingActor, WorkingPrivateState);
+					_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
+					_version.inc();
 			}
 			Thread.currentThread().interrupt();
+
 		}
 	}
 

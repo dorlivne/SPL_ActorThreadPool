@@ -34,7 +34,7 @@ public class ParticipateInCourse extends Action {
                 ((StudentPrivateState)this.ActorState).addCourseAndGrade(courseName,grade);//Adding course to student
                 this.ActorState.addRecord(getActionName());
                 complete(true);
-               System.out.println("student " + this.studentID + " added to " + this.courseName + " course");
+                System.out.println("student " + this.studentID + " added to " + this.courseName + " course");
             }
             else{
                 complete(false);

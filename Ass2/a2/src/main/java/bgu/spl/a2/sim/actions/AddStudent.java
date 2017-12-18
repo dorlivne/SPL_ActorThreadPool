@@ -18,7 +18,7 @@ public class AddStudent extends Action{
 
     @Override
     protected void start() {
-        System.out.println("Adding Student " + this.studentID + "   " + Thread.currentThread().toString());
+        System.out.println("Adding Student " + this.studentID);
         List<Action<Boolean>> actions = new ArrayList<>();
         Action<Boolean> AddStudentConfirmation = new AddStudentConfirmation(this.studentID);
         actions.add(AddStudentConfirmation);

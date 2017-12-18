@@ -2,6 +2,7 @@ package bgu.spl.a2.sim;
 import bgu.spl.a2.Promise;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.Lock;
 
 /**
  *
@@ -62,13 +63,20 @@ public class SuspendingMutex {
 	}
 	//Added Functions
 	private void TryLock(Promise<Computer> promise){
-		if (Locked.compareAndSet(false,true)) {//if false then set to true and aquire computer
-			Key = new Promise<>();//a new key for a new tenant
-			promise.resolve(computer);
-		}else {
-
-			Key.subscribe(() -> TryLock(promise));//try again once the key is freed
+		boolean Owner = false;
+		synchronized (Locked) {
+			if (Locked.compareAndSet(false, true)) {//if false then set to true and aquire computer
+				Key = new Promise<>();//a new key for a new tenant
+				Owner = true;
+				//promise.resolve(computer);
+			}
+			Locked.notifyAll();
+		}
+			if(!Owner)
+				Key.subscribe(() -> TryLock(promise));//try again once the key is freed
+			else
+				promise.resolve(computer);
 		}
 
 	}
-}
+
