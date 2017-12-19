@@ -34,7 +34,6 @@ public class JsonFunctions {
     public static LinkedList<Action> GetActions(JsonArray ActionsCollection, ActorThreadPool pool, Warehouse warehouse) {
         String ActorName;//first actor before submit
         String  CoActorName;//Actor that we need to update
-        Vector<String> PreReq = new Vector<>();
         int HelperPara;//if extra parameters are needed (such as grade in the course)
         int Space;
 
@@ -47,6 +46,7 @@ public class JsonFunctions {
                 case "Open Course":
                     ActorName = action.get("Course").getAsString();//here the main actor is course
                     CoActorName = action.get("Department").getAsString();
+                    Vector<String> PreReq = new Vector<>();
                     JsonArray JsonPreReq = action.get("Prerequisites").getAsJsonArray();
                     for (JsonElement jsonElement : JsonPreReq) {
                         PreReq.add(jsonElement.getAsString());
@@ -54,7 +54,6 @@ public class JsonFunctions {
                     Space = action.get("Space").getAsInt();
                     OpenANewCourse openNewCourse = new OpenANewCourse(ActorName,Space,PreReq,CoActorName);
                     ActionList.add(openNewCourse);
-                    PreReq.clear();
                     pool.submit(openNewCourse,ActorName,new CoursePrivateState());
                     break;
                 case "Add Student":
@@ -94,8 +93,6 @@ public class JsonFunctions {
                     String Computer = action.get("Computer").getAsString();
                     CheckAdministrativeObligations CheckAdministrativeObligations = new CheckAdministrativeObligations(StudentsID,PreReqList,Computer,warehouse);
                     ActionList.add(CheckAdministrativeObligations);
-                    PreReq.clear();
-                    StudentsID.clear();
                     pool.submit(CheckAdministrativeObligations,ActorName,new DepartmentPrivateState());
                     break;
                 case "Add Spaces":
