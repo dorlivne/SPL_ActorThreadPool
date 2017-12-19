@@ -2,13 +2,18 @@ package bgu.spl.a2.sim;
 
 
 import bgu.spl.a2.Action;
-import bgu.spl.a2.sim.actions.OpenANewCourse;
+import bgu.spl.a2.ActorThreadPool;
+import bgu.spl.a2.sim.actions.*;
+import bgu.spl.a2.sim.privateStates.CoursePrivateState;
+import bgu.spl.a2.sim.privateStates.DepartmentPrivateState;
+import bgu.spl.a2.sim.privateStates.StudentPrivateState;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 
 public class JsonFunctions {
@@ -26,7 +31,13 @@ public class JsonFunctions {
         return ComputerHashMap;
 
     }
-    public static LinkedList<Action> GetActions(JsonArray ActionsCollection) {
+    public static LinkedList<Action> GetActions(JsonArray ActionsCollection, ActorThreadPool pool, Warehouse warehouse) {
+        String ActorName;//first actor before submit
+        String  CoActorName;//Actor that we need to update
+        Vector<String> PreReq = new Vector<>();
+        int HelperPara;//if extra parameters are needed (such as grade in the course)
+        int Space;
+
         LinkedList<Action> ActionList = new LinkedList<>();
         for (int i = 0; i < ActionsCollection.size(); i++) {
             JsonObject action = ActionsCollection.get(i).getAsJsonObject();
@@ -34,28 +45,79 @@ public class JsonFunctions {
 
             switch (ActionName){
                 case "Open Course":
-                    String ActorName = action.get("Department").getAsString();
-                    String  Name = action.get("Course").getAsString();
+                    ActorName = action.get("Course").getAsString();//here the main actor is course
+                    CoActorName = action.get("Department").getAsString();
                     JsonArray JsonPreReq = action.get("Prerequisites").getAsJsonArray();
-                    Vector<String> PreReq = new Vector<>();
                     for (JsonElement jsonElement : JsonPreReq) {
                         PreReq.add(jsonElement.getAsString());
                     }
-                    int Space = action.get("Space").getAsInt();
-                    OpenANewCourse openNewCourse = new OpenANewCourse(Name,Space,PreReq,ActorName);
+                    Space = action.get("Space").getAsInt();
+                    OpenANewCourse openNewCourse = new OpenANewCourse(ActorName,Space,PreReq,CoActorName);
                     ActionList.add(openNewCourse);
+                    pool.submit(openNewCourse,ActorName,new CoursePrivateState());
                     break;
                 case "Add Student":
+                    ActorName = action.get("Student").getAsString();
+                    CoActorName = action.get("Department").getAsString();
+                    AddStudent AddStudent = new AddStudent(CoActorName,ActorName);
+                    ActionList.add(AddStudent);
+                    pool.submit(AddStudent,ActorName,new StudentPrivateState());
                     break;
                 case "Participate In Course":
+                    ActorName = action.get("Student").getAsString();
+                    CoActorName = action.get("Course").getAsString();
+                    HelperPara = action.get("grade").getAsInt();
+                    ParticipateInCourse ParticipateInCourse = new ParticipateInCourse(CoActorName,ActorName,HelperPara);
+                    ActionList.add(ParticipateInCourse);
+                    pool.submit(ParticipateInCourse,ActorName,new StudentPrivateState());
                     break;
                 case "Unregister":
+                    ActorName = action.get("Student").getAsString();
+                    CoActorName = action.get("Course").getAsString();
+                    Unregister Unregister = new Unregister(ActorName,CoActorName);
+                    ActionList.add(Unregister);
+                    pool.submit(Unregister,ActorName,new StudentPrivateState());
                     break;
                 case "Administrative Check":
+                    ActorName = action.get("Department").getAsString();
+                    JsonArray CoActor = action.get("Student").getAsJsonArray();
+                    List<String> StudentsID = new LinkedList<>();
+                    for (JsonElement jsonElement : CoActor) {//list of students
+                        StudentsID.add(jsonElement.getAsString());
+                    }
+                    JsonPreReq = action.get("Conditions").getAsJsonArray();
+                    List<String> PreReqList = new LinkedList<>();
+                    for (JsonElement jsonElement : JsonPreReq) {
+                        PreReqList.add(jsonElement.getAsString());
+                    }
+                    String Computer = action.get("Computer").getAsString();
+                    CheckAdministrativeObligations CheckAdministrativeObligations = new CheckAdministrativeObligations(StudentsID,PreReqList,Computer,warehouse);
+                    ActionList.add(CheckAdministrativeObligations);
+                    pool.submit(CheckAdministrativeObligations,ActorName,new DepartmentPrivateState());
                     break;
                 case "Add Spaces":
+                    ActorName = action.get("Course").getAsString();
+                    HelperPara = action.get("Number").getAsInt();
+                    AddSpaces AddSpaces = new AddSpaces(ActorName,HelperPara);
+                    ActionList.add(AddSpaces);
+                    pool.submit(AddSpaces,ActorName,new CoursePrivateState());
                     break;
                 case "Register With Preferences":
+                    ActorName = action.get("Student").getAsString();//here the main actor is course
+                    CoActor = action.get("Preferences").getAsJsonArray();
+                    List<String> Pref = new LinkedList<>();
+                    for (JsonElement jsonElement : CoActor) {//list of students
+                        Pref.add(jsonElement.getAsString());
+                    }
+                    JsonPreReq = action.get("Grades").getAsJsonArray();//grades!!
+                    List<Integer> Grades = new LinkedList<>();
+                    for (JsonElement jsonElement : JsonPreReq) {
+                        Grades.add(jsonElement.getAsInt());
+                    }
+                    Space = action.get("Space").getAsInt();
+                    RegisterStudent RegisterStudent = new RegisterStudent(ActorName,Pref,Grades);
+                    ActionList.add(RegisterStudent);
+                    pool.submit(RegisterStudent,ActorName,new StudentPrivateState());
                     break;
                 case "Close Course":
                     break;

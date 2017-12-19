@@ -4,18 +4,13 @@
  * and open the template in the editor.
  */
 package bgu.spl.a2.sim;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.CountDownLatch;
-
 import bgu.spl.a2.Action;
 import bgu.spl.a2.ActorThreadPool;
 import bgu.spl.a2.PrivateState;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -30,6 +25,7 @@ public class Simulator {
 	public static ActorThreadPool actorThreadPool;
 	private static JsonObject Json;
 	private static Warehouse warehouse;
+	private static CountDownLatch ActionToComplete1;
 
 	/**
 	 * Begin the simulation Should not be called before attachActorThreadPool()
@@ -39,12 +35,29 @@ public class Simulator {
 		JsonArray Computers = Json.get("Computers").getAsJsonArray();
 		HashMap<String,Computer> ComputersCollection = JsonFunctions.GetComputers(Computers);
 		warehouse = new Warehouse(ComputersCollection);
-		//Finished building a warehouse
+		//Finished building a warehouse////////
 		//////Start Phase 1/////////
-		JsonArray Phase1Actions = Json.get("Phase 1").getAsJsonArray();
-		CountDownLatch ActionToComplete = new CountDownLatch(Phase1Actions.size());
-		LinkedList<Action> Actions = JsonFunctions.GetActions(Phase1Actions);
-		String test = "dasdas";
+		StartFunc("Phase 1");
+		////End Of Phase 1/////
+		////////Start Phase 2//////////
+		StartFunc("Phase 2");
+		/////////End Phase 2////////
+		////////Start Phase 3///////
+		StartFunc("Phase 3");
+		////////End Phase 3///////
+
+
+	}
+	private static void StartFunc(String Phase){
+		JsonArray PhaseActions = Json.get(Phase).getAsJsonArray();
+		LinkedList<Action> Actions = JsonFunctions.GetActions(PhaseActions,actorThreadPool,warehouse);
+		ActionToComplete1 = new CountDownLatch(Actions.size());
+		for (Action action : Actions) {
+			action.getResult().subscribe(()->ActionToComplete1.countDown());
+		}
+		try{
+			ActionToComplete1.await();
+		}catch(InterruptedException e){}
 	}
 
 	/**
@@ -61,7 +74,20 @@ public class Simulator {
 	 * returns list of private states
 	 */
 	public static HashMap<String,PrivateState> end(){
-		return ((HashMap<String,PrivateState>)actorThreadPool.getActors());
+		try {
+			actorThreadPool.shutdown();
+		}catch(InterruptedException ignored){}
+		HashMap<String,PrivateState> SimulationResult = ((HashMap<String,PrivateState>)actorThreadPool.getActors());
+		try {
+			FileOutputStream fout = new FileOutputStream("result.ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			oos.writeObject(SimulationResult);
+		}catch(FileNotFoundException e){
+			System.out.println("File not found");
+		}
+		catch(IOException e){e.toString();}
+
+		return SimulationResult;
 	}
 
 	//TODO CHANGE BACK TO INT!!!!!!
