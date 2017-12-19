@@ -54,6 +54,7 @@ public class JsonFunctions {
                     Space = action.get("Space").getAsInt();
                     OpenANewCourse openNewCourse = new OpenANewCourse(ActorName,Space,PreReq,CoActorName);
                     ActionList.add(openNewCourse);
+                    PreReq.clear();
                     pool.submit(openNewCourse,ActorName,new CoursePrivateState());
                     break;
                 case "Add Student":
@@ -66,8 +67,8 @@ public class JsonFunctions {
                 case "Participate In Course":
                     ActorName = action.get("Student").getAsString();
                     CoActorName = action.get("Course").getAsString();
-                    HelperPara = action.get("grade").getAsInt();
-                    ParticipateInCourse ParticipateInCourse = new ParticipateInCourse(CoActorName,ActorName,HelperPara);
+                    HelperPara = action.get("Grade").getAsInt();
+                    ParticipateInCourse ParticipateInCourse = new ParticipateInCourse(ActorName,CoActorName,HelperPara);
                     ActionList.add(ParticipateInCourse);
                     pool.submit(ParticipateInCourse,ActorName,new StudentPrivateState());
                     break;
@@ -80,7 +81,7 @@ public class JsonFunctions {
                     break;
                 case "Administrative Check":
                     ActorName = action.get("Department").getAsString();
-                    JsonArray CoActor = action.get("Student").getAsJsonArray();
+                    JsonArray CoActor = action.get("Students").getAsJsonArray();
                     List<String> StudentsID = new LinkedList<>();
                     for (JsonElement jsonElement : CoActor) {//list of students
                         StudentsID.add(jsonElement.getAsString());
@@ -93,6 +94,8 @@ public class JsonFunctions {
                     String Computer = action.get("Computer").getAsString();
                     CheckAdministrativeObligations CheckAdministrativeObligations = new CheckAdministrativeObligations(StudentsID,PreReqList,Computer,warehouse);
                     ActionList.add(CheckAdministrativeObligations);
+                    PreReq.clear();
+                    StudentsID.clear();
                     pool.submit(CheckAdministrativeObligations,ActorName,new DepartmentPrivateState());
                     break;
                 case "Add Spaces":
@@ -117,10 +120,20 @@ public class JsonFunctions {
                     Space = action.get("Space").getAsInt();
                     RegisterStudent RegisterStudent = new RegisterStudent(ActorName,Pref,Grades);
                     ActionList.add(RegisterStudent);
+                    Pref.clear();
+                    Grades.clear();
                     pool.submit(RegisterStudent,ActorName,new StudentPrivateState());
                     break;
                 case "Close Course":
+                    ActorName = action.get("Course").getAsString();
+                    CoActorName = action.get("Department").getAsString();
+                    CloseCourse CloseCourse = new CloseCourse(ActorName,CoActorName);
+                    ActionList.add(CloseCourse);
+                    pool.submit(CloseCourse,ActorName,new CoursePrivateState());
                     break;
+
+                    default:
+                        break;
             }
 
 

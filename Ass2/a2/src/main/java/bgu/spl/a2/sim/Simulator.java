@@ -35,15 +35,19 @@ public class Simulator {
 		JsonArray Computers = Json.get("Computers").getAsJsonArray();
 		HashMap<String,Computer> ComputersCollection = JsonFunctions.GetComputers(Computers);
 		warehouse = new Warehouse(ComputersCollection);
+		actorThreadPool.start();
 		//Finished building a warehouse////////
 		//////Start Phase 1/////////
 		StartFunc("Phase 1");
+		System.out.println("End Of Phase 1");
 		////End Of Phase 1/////
 		////////Start Phase 2//////////
 		StartFunc("Phase 2");
+		System.out.println("End Of Phase 2");
 		/////////End Phase 2////////
 		////////Start Phase 3///////
 		StartFunc("Phase 3");
+		System.out.println("End Of Phase 3");
 		////////End Phase 3///////
 
 
@@ -101,7 +105,8 @@ public class Simulator {
 			jsondocumnet = Parser.parse(new FileReader(path)).getAsJsonObject();
 		}catch(FileNotFoundException e){}
 		Json= jsondocumnet;
-		ThreadNumber = jsondocumnet.get("threads").getAsInt();
+		//ThreadNumber = jsondocumnet.get("threads").getAsInt();
+		ThreadNumber = 1;//TODO - for tests only
 		ActorThreadPool pool = new ActorThreadPool(ThreadNumber);
 		attachActorThreadPool(pool);
 		start();
