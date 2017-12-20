@@ -117,8 +117,6 @@ public class JsonFunctions {
                     Space = action.get("Space").getAsInt();
                     RegisterStudent RegisterStudent = new RegisterStudent(ActorName,Pref,Grades);
                     ActionList.add(RegisterStudent);
-                    Pref.clear();
-                    Grades.clear();
                     pool.submit(RegisterStudent,ActorName,new StudentPrivateState());
                     break;
                 case "Close Course":

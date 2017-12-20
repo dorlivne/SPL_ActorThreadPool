@@ -49,6 +49,7 @@ public class Simulator {
 		StartFunc("Phase 3");
 		System.out.println("End Of Phase 3");
 		////////End Phase 3///////
+		end();
 
 
 	}
@@ -105,8 +106,8 @@ public class Simulator {
 			jsondocumnet = Parser.parse(new FileReader(path)).getAsJsonObject();
 		}catch(FileNotFoundException e){}
 		Json= jsondocumnet;
-		//ThreadNumber = jsondocumnet.get("threads").getAsInt();
-		ThreadNumber = 1;//TODO - for tests only
+		ThreadNumber = jsondocumnet.get("threads").getAsInt();
+		//ThreadNumber = 1;//TODO - for tests only
 		ActorThreadPool pool = new ActorThreadPool(ThreadNumber);
 		attachActorThreadPool(pool);
 		start();
