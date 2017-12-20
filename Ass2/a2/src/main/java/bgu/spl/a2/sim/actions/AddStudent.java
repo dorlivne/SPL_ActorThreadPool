@@ -2,6 +2,8 @@ package bgu.spl.a2.sim.actions;
 
 import bgu.spl.a2.Action;
 import bgu.spl.a2.sim.privateStates.DepartmentPrivateState;
+import bgu.spl.a2.sim.privateStates.StudentPrivateState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +22,9 @@ public class AddStudent extends Action{
     protected void start() {
         System.out.println("Adding Student " + this.studentID);
         List<Action<Boolean>> actions = new ArrayList<>();
-        Action<Boolean> AddStudentConfirmation = new AddStudentConfirmation(this.studentID);
+        Action<Boolean> AddStudentConfirmation = new AddStudentConfirmation(this.DepartmentName,this.studentID);
         actions.add(AddStudentConfirmation);
-        sendMessage(AddStudentConfirmation, this.DepartmentName, new DepartmentPrivateState());
+        sendMessage(AddStudentConfirmation, this.studentID, new StudentPrivateState());
         then(actions,()->{
             Boolean result = actions.get(0).getResult().get();
             if(result == true) {

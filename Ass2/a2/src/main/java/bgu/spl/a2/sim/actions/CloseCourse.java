@@ -22,20 +22,15 @@ public class CloseCourse extends Action{
     @Override
     protected void start() {
         System.out.println("Closing course " + this.CourseName);
+        ((DepartmentPrivateState) this.ActorState).RemoveCourseFromDepartment(this.CourseName);
         List<Action<Boolean>> actions = new ArrayList<>();
         Action<Boolean> CloseCourseConfirmation = new CloseCourseConfirmation(this.CourseName);
         actions.add(CloseCourseConfirmation);
-        sendMessage(CloseCourseConfirmation, this.DepartmentName, new DepartmentPrivateState());
+        sendMessage(CloseCourseConfirmation, this.CourseName, new CoursePrivateState());
         then(actions,()->{
             Boolean result = actions.get(0).getResult().get();
             if(result == true) {
                 {
-                    for (String RegStudent : ((CoursePrivateState) this.ActorState).getRegStudents()) {
-                        ((StudentPrivateState) this.pool.getPrivateStates(RegStudent)).removeCourse(this.CourseName);
-                    }
-                    ((CoursePrivateState) this.ActorState).getRegStudents().clear();
-                    ((CoursePrivateState) this.ActorState).setRegistered(0);
-                    ((CoursePrivateState) this.ActorState).setAvailableSpots(-1);
                     complete(true);
                     this.ActorState.addRecord(getActionName());
                     System.out.println("The course: " + this.CourseName + " is close");

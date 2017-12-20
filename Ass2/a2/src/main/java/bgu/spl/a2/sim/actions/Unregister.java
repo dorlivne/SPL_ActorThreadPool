@@ -21,23 +21,27 @@ public class Unregister extends Action {
 
     @Override
     protected void start() {
-        System.out.println("Unregistering Student: " + this.studentID);
-        List<Action<Boolean>> actions = new ArrayList<>();
-        Action<Boolean> UnregisterConfirmation = new UnregisterConfirmation(this.studentID);
-        actions.add(UnregisterConfirmation);
-        sendMessage(UnregisterConfirmation,this.courseName, new CoursePrivateState());
-        then(actions,()->{
-            Boolean result = actions.get(0).getResult().get();
-            if(result == true) {
-                ((StudentPrivateState)this.ActorState).removeCourse(courseName);//Removing course to student
-                this.ActorState.addRecord(getActionName());
-                complete(true);
-                System.out.println("student " + this.studentID + " removed from " + this.courseName + " course");
-            }
-            else{
-                complete(false);
-                System.out.println("student " + this.studentID + " wasn't removed from " + this.courseName + " course");
-            }
-        });
+        boolean isRegistered = ((CoursePrivateState) this.ActorState).getRegStudents().contains(this.studentID);
+        if (!isRegistered)
+            this.pool.submit(this, this.courseName, this.ActorState);
+        else {
+            System.out.println("Unregistering Student: " + this.studentID);
+            List<Action<Boolean>> actions = new ArrayList<>();
+            Action<Boolean> UnregisterConfirmation = new UnregisterConfirmation(this.courseName);
+            actions.add(UnregisterConfirmation);
+            sendMessage(UnregisterConfirmation, this.studentID, new StudentPrivateState());
+            then(actions, () -> {
+                Boolean result = actions.get(0).getResult().get();
+                if (result == true) {
+                    this.ActorState.addRecord(getActionName());
+                    ((CoursePrivateState)this.ActorState).RemoveStudent(this.studentID);
+                    complete(true);
+                    System.out.println("student " + this.studentID + " removed from " + this.courseName + " course");
+                } else {
+                    complete(false);
+                    System.out.println("student " + this.studentID + " wasn't removed from " + this.courseName + " course");
+                }
+            });
+        }
     }
 }

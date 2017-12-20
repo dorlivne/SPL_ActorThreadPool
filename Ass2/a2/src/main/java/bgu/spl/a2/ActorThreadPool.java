@@ -24,7 +24,7 @@ public class ActorThreadPool {
 	private ConcurrentHashMap<String,Queue<Action>> _Actors = new ConcurrentHashMap<>();
 	private Vector<String>  _ActorsId = new Vector<>();
 	private ConcurrentHashMap<String,Boolean> _ActorsOccupied = new ConcurrentHashMap<>();
-	private ConcurrentHashMap<String,PrivateState> _ActorsPrivateState = new ConcurrentHashMap<>();
+	private HashMap<String,PrivateState> _ActorsPrivateState = new HashMap<>();
 	private VersionMonitor _version;
 	private Object Lock = new Object();
 

@@ -27,7 +27,7 @@ public class OpenANewCourse extends Action<Boolean> {
         this.setActionName("Open A New Course");
     }
 
-    @Override
+   /* @Override
     protected void start() {
         System.out.println("Opening course");
         ((CoursePrivateState)this.ActorState).setPrequisites(this.prequisites);
@@ -40,6 +40,32 @@ public class OpenANewCourse extends Action<Boolean> {
             Boolean result = actions.get(0).getResult().get();
             if(result == true) {
                 complete(true);
+                this.ActorState.addRecord(getActionName());
+                System.out.println("course " + this.courseName + " opened with " + this.availableSpots + " places");
+            }
+            else{
+                complete(false);
+                System.out.println("course " + this.courseName + " not opened ");
+            }
+        });
+
+    }
+}*/
+
+
+    @Override
+    protected void start() {
+        System.out.println("Opening course");
+
+        List<Action<Boolean>> actions = new ArrayList<>();
+        Action<Boolean> OpenCourseConfirmation = new OpenCourseConfirmation(this.courseName,this.prequisites,this.availableSpots);
+        actions.add(OpenCourseConfirmation);
+        sendMessage(OpenCourseConfirmation, this.courseName, new CoursePrivateState());
+        then(actions,()->{
+            Boolean result = actions.get(0).getResult().get();
+            if(result == true) {
+                complete(true);
+                ((DepartmentPrivateState)this.ActorState).AddCourseToDepartment(this.courseName);
                 this.ActorState.addRecord(getActionName());
                 System.out.println("course " + this.courseName + " opened with " + this.availableSpots + " places");
             }

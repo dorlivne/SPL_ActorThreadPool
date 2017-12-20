@@ -22,5 +22,6 @@ public class AddSpaces extends Action {
         System.out.println("Adding Spaces");
         ((CoursePrivateState)this.ActorState).setAvailableSpots(this.spaces);
         this.getResult().resolve(true);//added successfully
+        System.out.println(this.spaces + " Spaces added to " + this.courseName + " course");
     }
 }

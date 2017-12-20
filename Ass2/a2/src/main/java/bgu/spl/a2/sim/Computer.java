@@ -44,6 +44,8 @@ public class Computer {
 				Passed.set(false);
 				break;
 			}
+			else if (courses.indexOf(X) < courses.size() - 1)
+				X = courses.get(index + 1);
 		}
 		if(Passed.toString().equals("true")  && HasCourse.toString().equals("true")){
 			return successSig;
