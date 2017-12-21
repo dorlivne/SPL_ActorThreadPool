@@ -2,28 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3447177c-ac9d-4e34-b33d-3325d1bec296" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/result.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/ActorThreadPool.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/ActorThreadPool.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/PrivateState.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/PrivateState.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/AddSpaces.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/AddSpaces.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/AddStudent.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/AddStudent.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/AddStudentConfirmation.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/AddStudentConfirmation.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CloseCourse.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CloseCourse.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CloseCourseConfirmation.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CloseCourseConfirmation.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/OpenANewCourse.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/OpenANewCourse.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/OpenCourseConfirmation.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/OpenCourseConfirmation.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/ParticipateInCourse.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/ParticipateInCourse.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/ParticipateInCourseConfirmation.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/ParticipateInCourseConfirmation.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/RegStudentConfirmation.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/RegStudentConfirmation.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/RegisterStudent.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/RegisterStudent.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/Unregister.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/Unregister.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/UnregisterConfirmation.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/UnregisterConfirmation.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/a2/BankTest.java" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/a2/BankTest.java" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/ActorThreadPool.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/ActorThreadPool.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/a2/PrivateState.class" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/a2/PrivateState.class" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/BankTest.class" afterPath="$PROJECT_DIR$/target/test-classes/bgu/spl/a2/BankTest.class" />
+      <change beforePath="$PROJECT_DIR$/result.ser" afterPath="$PROJECT_DIR$/result.ser" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/JsonFunctions.java" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/JsonFunctions.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,6 +34,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="JsonFunctions.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/JsonFunctions.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="178">
+              <caret line="112" column="62" lean-forward="true" selection-start-line="112" selection-start-column="62" selection-end-line="112" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="PrivateState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/PrivateState.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -67,7 +58,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Computer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Computer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="226">
@@ -198,7 +189,6 @@
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/privateStates/CoursePrivateState.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/CheckAdministrativeObligations.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Simulator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/JsonFunctions.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/ActorThreadPool.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/VersionMonitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/actions/OpenCourseConfirmation.java" />
@@ -217,6 +207,7 @@
         <option value="$PROJECT_DIR$/src/test/java/bgu/spl/a2/BankTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/PrivateState.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Computer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/JsonFunctions.java" />
       </list>
     </option>
   </component>
@@ -389,7 +380,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.BankTest">
+  <component name="RunManager" selected="Application.Simulator">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -593,8 +584,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.BankTest" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Simulator" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Simulator" />
+        <item index="1" class="java.lang.String" itemvalue="Application.BankTest" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.PromiseTest" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.VersionMonitorTest" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.VersionMonitorTest.testGetVersion" />
@@ -748,7 +739,14 @@
       <option name="project" value="LOCAL" />
       <updated>1513782770105</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="After Actions Changes">
+      <created>1513814392086</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1513814392086</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -803,7 +801,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36019737" sideWeight="0.50322235" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44901314" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1875" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290469" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31927025" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -843,7 +841,8 @@
     <MESSAGE value="with dependency" />
     <MESSAGE value="updated simulator, Json - before tests" />
     <MESSAGE value="updated simulator, Json -ater some tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated simulator, Json -ater some tests" />
+    <MESSAGE value="After Actions Changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="After Actions Changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1090,14 +1089,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/JsonFunctions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="118" column="52" lean-forward="true" selection-start-line="118" selection-start-column="52" selection-end-line="118" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/Simulator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1177,8 +1168,8 @@
         <state relative-caret-position="186">
           <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
           <folding>
-            <element signature="e#3337#3338#0" expanded="true" />
-            <element signature="e#3367#3368#0" expanded="true" />
+            <element signature="e#3337#3338#0" expanded="false" />
+            <element signature="e#3367#3368#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1232,7 +1223,7 @@
         <state relative-caret-position="78">
           <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
           <folding>
-            <element signature="e#3912#3913#0" expanded="true" />
+            <element signature="e#3912#3913#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1314,6 +1305,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
           <caret line="37" column="60" lean-forward="true" selection-start-line="37" selection-start-column="60" selection-end-line="37" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/a2/sim/JsonFunctions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="112" column="62" lean-forward="true" selection-start-line="112" selection-start-column="62" selection-end-line="112" selection-end-column="62" />
           <folding />
         </state>
       </provider>

@@ -44,39 +44,39 @@ public class JsonFunctions {
 
             switch (ActionName){
                 case "Open Course":
-                    ActorName = action.get("Course").getAsString();//here the main actor is course
-                    CoActorName = action.get("Department").getAsString();
+                    ActorName = action.get("Department").getAsString();
+                    CoActorName= action.get("Course").getAsString();//here the main actor is course
                     Vector<String> PreReq = new Vector<>();
                     JsonArray JsonPreReq = action.get("Prerequisites").getAsJsonArray();
                     for (JsonElement jsonElement : JsonPreReq) {
                         PreReq.add(jsonElement.getAsString());
                     }
                     Space = action.get("Space").getAsInt();
-                    OpenANewCourse openNewCourse = new OpenANewCourse(ActorName,Space,PreReq,CoActorName);
+                    OpenANewCourse openNewCourse = new OpenANewCourse(CoActorName,Space,PreReq,ActorName);
                     ActionList.add(openNewCourse);
-                    pool.submit(openNewCourse,ActorName,new CoursePrivateState());
+                    pool.submit(openNewCourse,ActorName,new DepartmentPrivateState());
                     break;
                 case "Add Student":
-                    ActorName = action.get("Student").getAsString();
-                    CoActorName = action.get("Department").getAsString();
-                    AddStudent AddStudent = new AddStudent(CoActorName,ActorName);
+                    ActorName= action.get("Department").getAsString();
+                    CoActorName = action.get("Student").getAsString();
+                    AddStudent AddStudent = new AddStudent(ActorName,CoActorName);
                     ActionList.add(AddStudent);
-                    pool.submit(AddStudent,ActorName,new StudentPrivateState());
+                    pool.submit(AddStudent,ActorName,new DepartmentPrivateState());
                     break;
                 case "Participate In Course":
-                    ActorName = action.get("Student").getAsString();
-                    CoActorName = action.get("Course").getAsString();
+                    ActorName  = action.get("Course").getAsString();
+                    CoActorName= action.get("Student").getAsString();
                     HelperPara = action.get("Grade").getAsInt();
-                    ParticipateInCourse ParticipateInCourse = new ParticipateInCourse(ActorName,CoActorName,HelperPara);
+                    ParticipateInCourse ParticipateInCourse = new ParticipateInCourse(CoActorName,ActorName,HelperPara);
                     ActionList.add(ParticipateInCourse);
-                    pool.submit(ParticipateInCourse,ActorName,new StudentPrivateState());
+                    pool.submit(ParticipateInCourse,ActorName,new CoursePrivateState());
                     break;
                 case "Unregister":
-                    ActorName = action.get("Student").getAsString();
-                    CoActorName = action.get("Course").getAsString();
-                    Unregister Unregister = new Unregister(ActorName,CoActorName);
+                    ActorName  = action.get("Course").getAsString();
+                    CoActorName = action.get("Student").getAsString();
+                    Unregister Unregister = new Unregister(CoActorName,ActorName);
                     ActionList.add(Unregister);
-                    pool.submit(Unregister,ActorName,new StudentPrivateState());
+                    pool.submit(Unregister,ActorName,new CoursePrivateState());
                     break;
                 case "Administrative Check":
                     ActorName = action.get("Department").getAsString();
@@ -102,7 +102,7 @@ public class JsonFunctions {
                     ActionList.add(AddSpaces);
                     pool.submit(AddSpaces,ActorName,new CoursePrivateState());
                     break;
-                case "Register With Preferences":
+                case "Register With Preferences"://changed the submit and not the action constructor
                     ActorName = action.get("Student").getAsString();//here the main actor is course
                     CoActor = action.get("Preferences").getAsJsonArray();
                     List<String> Pref = new LinkedList<>();
@@ -117,14 +117,14 @@ public class JsonFunctions {
                     Space = action.get("Space").getAsInt();
                     RegisterStudent RegisterStudent = new RegisterStudent(ActorName,Pref,Grades);
                     ActionList.add(RegisterStudent);
-                    pool.submit(RegisterStudent,ActorName,new StudentPrivateState());
+                    pool.submit(RegisterStudent,Pref.get(0),new CoursePrivateState());
                     break;
                 case "Close Course":
-                    ActorName = action.get("Course").getAsString();
-                    CoActorName = action.get("Department").getAsString();
+                    ActorName = action.get("Department").getAsString();
+                    CoActorName = action.get("Course").getAsString();
                     CloseCourse CloseCourse = new CloseCourse(ActorName,CoActorName);
                     ActionList.add(CloseCourse);
-                    pool.submit(CloseCourse,ActorName,new CoursePrivateState());
+                    pool.submit(CloseCourse,ActorName,new DepartmentPrivateState());
                     break;
 
                     default:
