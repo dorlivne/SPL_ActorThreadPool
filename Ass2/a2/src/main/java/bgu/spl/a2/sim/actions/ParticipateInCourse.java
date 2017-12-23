@@ -77,11 +77,11 @@ public class ParticipateInCourse extends Action {
                 });
             } else {
                 System.out.println("student " + this.studentID + " wasn't added to " + this.courseName + " course");
+                this.ActorState.addRecord(getActionName());
                 complete(true);
             }
         } else {
-            System.out.println("student " + this.studentID + " already registered to " + this.courseName + " course");
-            complete(true);
+            pool.submit(this,this.courseName,this.ActorState);//try again
         }
     }
 }

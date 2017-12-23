@@ -563,13 +563,16 @@ public class BankTest {
         Action<Boolean> PartInCourse17 = new ParticipateInCourse("Linda", "DS", 60);
         Action<Boolean> PartInCourse18 = new ParticipateInCourse("Linda", "Writing", 60);
         Action<Boolean> PartInCourse19 = new ParticipateInCourse("Kodish", "Intro to CS", 60);
-        Action<Boolean> PartInCourse20 = new ParticipateInCourse("Kodish", "Intro to CS", 60);
+        Action<Boolean> PartInCourse20 = new ParticipateInCourse("Kodish", "DS", 60);
         Action<Boolean> PartInCourse21 = new ParticipateInCourse("Kodish", "Intro to CS", 60);
         Action<Boolean> Unregister0 = new Unregister("Vinikov", "Linear Algebra");
-        Action<Boolean> PartInCourse22 = new ParticipateInCourse("Vinikov", "Linear Algebra", 60);
+        Action<Boolean> PartInCourse22 = new ParticipateInCourse("Vinikov", "CPU", 60);
         Action<Boolean> Register0 = new RegisterStudent("Vinikov", VinikovPref, VinikovGrades);
-        Action<Boolean> AddSpaces0 = new AddSpaces("Infi1", 10000000);
+        Action<Boolean> AddSpaces0 = new AddSpaces("Intro to CS", 10000000);
         Action<Boolean> CloseACourse0 = new CloseCourse("CS", "Intro to CS");
+        Action<Boolean> CloseACourse1 = new CloseCourse("General", "Writing");
+        Action<Boolean> Unregister1 = new Unregister("Vinikov", "Linear Algebra");
+        Action<Boolean> PartInCourse23 = new ParticipateInCourse("Vinikov", "Linear Algebra", 60);
 
 
 
@@ -598,12 +601,14 @@ public class BankTest {
         pool.submit(Unregister0,"Linear Algebra", new CoursePrivateState());
         pool.submit(PartInCourse22, "Linear Algebra", new CoursePrivateState());
         pool.submit(Register0, VinikovPref.get(0).toString(), new CoursePrivateState());
-        pool.submit(AddSpaces0, "Infi1", new CoursePrivateState());
         pool.submit(CloseACourse0, "CS", new DepartmentPrivateState());
+        pool.submit(AddSpaces0, "Intro to CS", new CoursePrivateState());
+        pool.submit(CloseACourse1, "General", new DepartmentPrivateState());
+        pool.submit(Unregister1,"Linear Algebra", new CoursePrivateState());
+        pool.submit(PartInCourse23, "Linear Algebra", new CoursePrivateState());
 
 
-
-        CountDownLatch Phase2 = new CountDownLatch(27);
+        CountDownLatch Phase2 = new CountDownLatch(30);
         PartInCourse0.getResult().subscribe(() -> Phase2.countDown());
         PartInCourse1.getResult().subscribe(() -> Phase2.countDown());
         PartInCourse2.getResult().subscribe(() -> Phase2.countDown());
@@ -631,6 +636,9 @@ public class BankTest {
         Register0.getResult().subscribe(()-> Phase2.countDown());
         AddSpaces0.getResult().subscribe(()-> Phase2.countDown());
         CloseACourse0.getResult().subscribe(()-> Phase2.countDown());
+        CloseACourse1.getResult().subscribe(()-> Phase2.countDown());
+        PartInCourse23.getResult().subscribe(() -> Phase2.countDown());
+        Unregister1.getResult().subscribe(()-> Phase2.countDown());
 
         try {
             Phase2.await();
@@ -640,6 +648,24 @@ public class BankTest {
 
         pool.shutdown();
         System.out.println("END OF Phase2");
+
+
+
+        System.out.println("Resault Comparison");
+        System.out.println("Phase1");
+        System.out.println("////////////////Actors\\\\\\\\\\\\\\\\");
+        System.out.println(pool.getActors().containsKey("Kodish") + " Kodish");
+        System.out.println(pool.getActors().containsKey("Shlomo")+" Shlomo");
+        System.out.println(pool.getActors().containsKey("Zipper") + " Zipper");
+        System.out.println(pool.getActors().containsKey("Shmowitch") + " Shmowitch");
+        System.out.println(pool.getActors().containsKey("Chloriaan") + " Chloriaan");
+        System.out.println(pool.getActors().containsKey("Joung") +" Joung");
+        System.out.println(pool.getActors().containsKey("Vinikov") + " Vinikov");
+        System.out.println(pool.getActors().containsKey("Hussain") + "Hussain");
+        System.out.println(pool.getActors().containsKey("Hannan") + " Hannan");
+        System.out.println(pool.getActors().containsKey("Dvora") + " Dvora");
+        System.out.println(pool.getActors().containsKey("Linda") + " Linda");
+
 
     }
 }

@@ -15,13 +15,20 @@ public class AddSpaces extends Action {
     public AddSpaces(String courseName, int spaces){
         this.spaces = spaces;
         this. courseName = courseName;
+        this.setActionName("Add Spaces");
     }
 
     @Override
     protected void start() {
         System.out.println("Adding Spaces");
-        ((CoursePrivateState)this.ActorState).setAvailableSpots(this.spaces);
+        this.ActorState.addRecord(getActionName());
+        if(((CoursePrivateState)this.ActorState).getAvailableSpots() != -1)//course is still open
+        {
+            ((CoursePrivateState) this.ActorState).setAvailableSpots(this.spaces);
+            System.out.println(this.spaces + " Spaces added to " + this.courseName + " course");
+        } else{
+            System.out.println("The course is close no spaces added");
+        }
         this.getResult().resolve(true);//added successfully
-        System.out.println(this.spaces + " Spaces added to " + this.courseName + " course");
     }
 }

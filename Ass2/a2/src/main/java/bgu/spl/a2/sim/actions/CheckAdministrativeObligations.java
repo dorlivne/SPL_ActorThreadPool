@@ -22,6 +22,7 @@ public class CheckAdministrativeObligations extends Action {
         this._Condition = Conditions;
         this._StudentsId = StudentsId;
         this._CompId = CompId;
+        this.setActionName("Check Administrative Obligations");
 
     }
     @Override
@@ -37,6 +38,7 @@ public class CheckAdministrativeObligations extends Action {
                 }
                then(actions, ()-> {
                    comp.Release();
+                   this.ActorState.addRecord(getActionName());
                    for (String pref : _StudentsId) {
                        Boolean result = actions.get(_StudentsId.indexOf(pref)).getResult().get();
                        if (result == true) {

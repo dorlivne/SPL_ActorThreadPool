@@ -28,11 +28,11 @@ public class CloseCourse extends Action{
         actions.add(CloseCourseConfirmation);
         sendMessage(CloseCourseConfirmation, this.CourseName, new CoursePrivateState());
         then(actions,()->{
+            this.ActorState.addRecord(getActionName());
             Boolean result = actions.get(0).getResult().get();
             if(result == true) {
                 {
                     complete(true);
-                    this.ActorState.addRecord(getActionName());
                     System.out.println("The course: " + this.CourseName + " is close");
                 }
             }
