@@ -43,10 +43,8 @@ public class CheckAdministrativeObligations extends Action {
                        Boolean result = actions.get(_StudentsId.indexOf(pref)).getResult().get();
                        if (result == true) {
                            complete(true);
-                           System.out.println("Check administrative done " + pref);
                        }else{
                            complete(false);
-                           System.out.println("Check administrative failed " + pref);
                        }
                    }
                      });

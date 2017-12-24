@@ -91,4 +91,10 @@ public class CoursePrivateState extends PrivateState{
 			return false;
 
 	}
+
+	public void AddSpaces(int spaces){
+		if (this.getAvailableSpots() != -1)
+			this.setAvailableSpots((spaces + this.availableSpots));//current + added spaces
+
+	}
 }

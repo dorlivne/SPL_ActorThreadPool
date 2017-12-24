@@ -29,8 +29,6 @@ public class OpenANewCourse extends Action<Boolean> {
 
     @Override
     protected void start() {
-        System.out.println("Opening course");
-
         List<Action<Boolean>> actions = new ArrayList<>();
         Action<Boolean> OpenCourseConfirmation = new OpenCourseConfirmation(this.courseName,this.prequisites,this.availableSpots);
         actions.add(OpenCourseConfirmation);
@@ -41,11 +39,9 @@ public class OpenANewCourse extends Action<Boolean> {
             if(result == true) {
                 complete(true);
                 ((DepartmentPrivateState)this.ActorState).AddCourseToDepartment(this.courseName);
-                System.out.println("course " + this.courseName + " opened with " + this.availableSpots + " places");
             }
             else{
                 complete(false);
-                System.out.println("course " + this.courseName + " not opened ");
             }
         });
 

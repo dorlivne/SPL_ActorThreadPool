@@ -30,8 +30,6 @@ public class RegisterStudent extends Action {
 
     @Override
     protected void start() {
-        System.out.println("Registering Student - With Pref");
-
         boolean RegisteredAlready = ((CoursePrivateState) this.pool.getActors().get(currentPref)).getRegStudents().contains(this.studentID);
         this.preReq = ((CoursePrivateState) this.pool.getActors().get(currentPref)).getPrequisites();
         this.studentGrades = ((StudentPrivateState) this.pool.getActors().get(this.studentID)).getGrades();
@@ -53,23 +51,19 @@ public class RegisterStudent extends Action {
                     if (result == true) {
                         complete(true);
                         this.ActorState.addRecord(getActionName());
-                        System.out.println("Student: " + this.studentID + " registered to course " + this.currentPref);
                     } else {//registered to none
                         complete(false);
                         this.ActorState.addRecord(getActionName());
-                        System.out.println("Student " + this.studentID + " not registered for none of his prefs");
                     }
                 });
             } else if (PreferenceStr.size() != 1){
                 this.NextPref();
             } else{
-                System.out.println("student " + this.studentID + "  not registered for none of his prefs");
                 complete(true);
             }
         } else if (PreferenceStr.size() != 1){
             this.NextPref();
         } else{
-            System.out.println("student " + this.studentID + "  not registered for none of his prefs");
             this.ActorState.addRecord(getActionName());
             complete(true);
         }

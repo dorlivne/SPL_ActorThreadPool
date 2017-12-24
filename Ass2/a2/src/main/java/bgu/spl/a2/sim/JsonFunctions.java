@@ -24,7 +24,7 @@ public class JsonFunctions {
             JsonObject Comp = ComputersCollection.get(i).getAsJsonObject();
             String ComputerName = Comp.get("Type").getAsString();
             long SigSuccess = Comp.get("Sig Success").getAsLong();
-            long SigFail = Comp.get("Sig  Fail").getAsLong();
+            long SigFail = Comp.get("Sig Fail").getAsLong();
             Computer x = new Computer(ComputerName,SigFail,SigSuccess);
             ComputerHashMap.put(ComputerName,x);
         }
@@ -66,7 +66,11 @@ public class JsonFunctions {
                 case "Participate In Course":
                     ActorName  = action.get("Course").getAsString();
                     CoActorName= action.get("Student").getAsString();
-                    HelperPara = action.get("Grade").getAsInt();
+                    String tempGrade = action.get("Grade").getAsString();
+                    if (tempGrade.equals("-"))
+                        HelperPara =-1;
+                    else
+                        HelperPara = action.get("Grade").getAsInt();
                     ParticipateInCourse ParticipateInCourse = new ParticipateInCourse(CoActorName,ActorName,HelperPara);
                     ActionList.add(ParticipateInCourse);
                     pool.submit(ParticipateInCourse,ActorName,new CoursePrivateState());
@@ -109,12 +113,14 @@ public class JsonFunctions {
                     for (JsonElement jsonElement : CoActor) {//list of students
                         Pref.add(jsonElement.getAsString());
                     }
-                    JsonPreReq = action.get("Grades").getAsJsonArray();//grades!!
+                    JsonPreReq = action.get("Grade").getAsJsonArray();//grades!!
                     List<Integer> Grades = new LinkedList<>();
                     for (JsonElement jsonElement : JsonPreReq) {
-                        Grades.add(jsonElement.getAsInt());
+                        if(jsonElement.getAsString().equals("-"))
+                            Grades.add(-1);
+                        else
+                            Grades.add(jsonElement.getAsInt());
                     }
-                    Space = action.get("Space").getAsInt();
                     RegisterStudent RegisterStudent = new RegisterStudent(ActorName,Pref,Grades);
                     ActionList.add(RegisterStudent);
                     pool.submit(RegisterStudent,Pref.get(0),new CoursePrivateState());

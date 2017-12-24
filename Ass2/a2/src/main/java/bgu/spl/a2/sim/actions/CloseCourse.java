@@ -21,7 +21,7 @@ public class CloseCourse extends Action{
 
     @Override
     protected void start() {
-        System.out.println("Closing course " + this.CourseName);
+
         ((DepartmentPrivateState) this.ActorState).RemoveCourseFromDepartment(this.CourseName);
         List<Action<Boolean>> actions = new ArrayList<>();
         Action<Boolean> CloseCourseConfirmation = new CloseCourseConfirmation(this.CourseName);
@@ -33,12 +33,10 @@ public class CloseCourse extends Action{
             if(result == true) {
                 {
                     complete(true);
-                    System.out.println("The course: " + this.CourseName + " is close");
                 }
             }
             else{
                 complete(false);
-                System.out.println("The course " + this.CourseName + " isn't colse");
             }
         });
     }

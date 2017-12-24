@@ -27,7 +27,6 @@ public class Unregister extends Action {
             complete(true);
         }
         else {
-            System.out.println("Unregistering Student: " + this.studentID);
             List<Action<Boolean>> actions = new ArrayList<>();
             Action<Boolean> UnregisterConfirmation = new UnregisterConfirmation(this.courseName);
             actions.add(UnregisterConfirmation);
@@ -38,10 +37,8 @@ public class Unregister extends Action {
                     this.ActorState.addRecord(getActionName());
                     ((CoursePrivateState)this.ActorState).RemoveStudent(this.studentID);
                     complete(true);
-                    System.out.println("student " + this.studentID + " removed from " + this.courseName + " course");
                 } else {
                     complete(false);
-                    System.out.println("student " + this.studentID + " wasn't removed from " + this.courseName + " course");
                 }
             });
         }

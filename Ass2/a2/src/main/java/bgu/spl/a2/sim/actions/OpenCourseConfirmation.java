@@ -21,15 +21,6 @@ public class OpenCourseConfirmation  extends Action<Boolean> {
        this.setActionName("Open Course Confirmation");
     }
 
- /*   @Override
-    protected void start() {
-        ((DepartmentPrivateState)this.ActorState).AddCourseToDepartment(this.CourseName);
-        this.getResult().resolve(true);//added successfully
-
-
-    }
-}*/
-
     @Override
     protected void start() {
         ((CoursePrivateState)this.ActorState).setPrequisites(this.prequisites);

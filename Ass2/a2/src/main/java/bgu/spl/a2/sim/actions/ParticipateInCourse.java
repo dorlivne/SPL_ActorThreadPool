@@ -20,13 +20,11 @@ public class ParticipateInCourse extends Action {
         this.studentID = studentID;
         this.courseName = courseName;
         this.grade = grade;
-        this.setActionName("Participate In Course " + this.studentID +" " + grade);
+        this.setActionName("Participate In Course");
     }
 
     @Override
     protected void start() {
-        System.out.println("Registering Student - no Pref -" + this.studentID);
-
         boolean RegisteredAlready = ((CoursePrivateState) this.ActorState).getRegStudents().contains(this.studentID);
         this.preReq = ((CoursePrivateState) this.ActorState).getPrequisites();
         this.studentGrades = ((StudentPrivateState) this.pool.getActors().get(this.studentID)).getGrades();
@@ -45,14 +43,11 @@ public class ParticipateInCourse extends Action {
                     if (result == true) {
                         this.ActorState.addRecord(getActionName());
                         complete(true);
-                        System.out.println("student " + this.studentID + " added to " + this.courseName + " course");
                     } else {
                         complete(false);
-                        System.out.println("student " + this.studentID + " wasn't added to " + this.courseName + " course");
                     }
                 });
             } else {
-                System.out.println("student " + this.studentID + " wasn't added to " + this.courseName + " course");
                 this.ActorState.addRecord(getActionName());
                 complete(true);
             }

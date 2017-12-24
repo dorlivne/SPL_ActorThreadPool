@@ -20,7 +20,6 @@ public class AddStudent extends Action{
 
     @Override
     protected void start() {
-        System.out.println("Adding Student " + this.studentID);
         this.ActorState.addRecord(getActionName());
         List<Action<Boolean>> actions = new ArrayList<>();
         Action<Boolean> AddStudentConfirmation = new AddStudentConfirmation(this.DepartmentName,this.studentID);
@@ -30,11 +29,9 @@ public class AddStudent extends Action{
             Boolean result = actions.get(0).getResult().get();
             if(result == true) {
                 complete(true);
-                System.out.println("Student: " + this.studentID + " added");
             }
             else{
                 complete(false);
-                System.out.println("Student " + this.studentID + " not added");
             }
         });
     }

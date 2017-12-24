@@ -45,15 +45,12 @@ public class Simulator {
 		//Finished building a warehouse////////
 		//////Start Phase 1/////////
 		StartFunc("Phase 1");
-		System.out.println("End Of Phase 1");
 		////End Of Phase 1/////
 		////////Start Phase 2//////////
 		StartFunc("Phase 2");
-		System.out.println("End Of Phase 2");
 		/////////End Phase 2////////
 		////////Start Phase 3///////
 		StartFunc("Phase 3");
-		System.out.println("End Of Phase 3");
 		////////End Phase 3///////
 		HashMap<String, PrivateState> SimulationResult = end();
 		Set<String> KeySet = SimulationResult.keySet();
@@ -103,7 +100,6 @@ public class Simulator {
 
 	public static void main(String [] args){
 		String path = args[0];
-		//	String path = "C:\\test.json";
 		JsonParser Parser = new JsonParser();
 		JsonObject jsondocumnet = null;
 		int ThreadNumber;
