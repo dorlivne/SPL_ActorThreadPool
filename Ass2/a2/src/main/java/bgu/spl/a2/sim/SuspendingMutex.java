@@ -61,6 +61,11 @@ public class SuspendingMutex {
 		Locked.set(false);//we release a computer from use locked = false
 		Key.resolve(true);//callback the waiting list the first one who answer will get the computer
 	}
+
+	/**
+	 * @param promise object for a specific request if this thread managed to lock on to a computer the promise is resolved
+	 *                if not this thread subscribes for the next chance to acquire the computer.
+	 */
 	//Added Functions
 	private void TryLock(Promise<Computer> promise){
 		boolean Owner = false;
@@ -68,15 +73,14 @@ public class SuspendingMutex {
 			if (Locked.compareAndSet(false, true)) {//if false then set to true and aquire computer
 				Key = new Promise<>();//a new key for a new tenant
 				Owner = true;
-				//promise.resolve(computer);
 			}
 			Locked.notifyAll();
 		}
-			if(!Owner)
-				Key.subscribe(() -> TryLock(promise));//try again once the key is freed
-			else
-				promise.resolve(computer);
-		}
-
+		if(!Owner)
+			Key.subscribe(() -> TryLock(promise));//try again once the key is freed
+		else
+			promise.resolve(computer);
 	}
+
+}
 

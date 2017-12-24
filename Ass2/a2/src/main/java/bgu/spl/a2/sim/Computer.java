@@ -34,8 +34,8 @@ public class Computer {
 
 		AtomicBoolean Passed = new AtomicBoolean(true);
 		AtomicBoolean HasCourse = new AtomicBoolean(true);
-		String X = ((LinkedList<String>)courses).getFirst();
 		for(int index = 0; index < courses.size(); index++){
+			String X = courses.get(index);
 			if(!coursesGrades.containsKey(X)){//dosen't contain
 				HasCourse.set(false);
 				break;
@@ -44,10 +44,8 @@ public class Computer {
 				Passed.set(false);
 				break;
 			}
-			else if (courses.indexOf(X) < courses.size() - 1)
-				X = courses.get(index + 1);
 		}
-		if(Passed.toString().equals("true")  && HasCourse.toString().equals("true")){
+		if(Passed.get()  && HasCourse.get()){
 			return successSig;
 		}
 		else

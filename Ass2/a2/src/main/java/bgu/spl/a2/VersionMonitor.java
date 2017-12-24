@@ -25,10 +25,15 @@ public class VersionMonitor {
     boolean shutdown = false;
 
     public int getVersion() {
-            return version.get();
-        }
+        return version.get();
+    }
 
 
+    /**
+     * Increment the version Monitor and notifying threads waiting on him
+     * the reason for the sync is to making sure that each threads who wants to increment the VM
+     * will increment the VM
+     */
     public synchronized void inc() {
         this.version.incrementAndGet();
         this.notifyAll();
@@ -41,7 +46,7 @@ public class VersionMonitor {
      */
     public synchronized void await(int version) throws InterruptedException {
         while(!shutdown && version == this.getVersion() ) {//we wait until the version of our objects equals to the needed version
-                this.wait();
+            this.wait();
         }
         this.notifyAll();
         throw new InterruptedException();

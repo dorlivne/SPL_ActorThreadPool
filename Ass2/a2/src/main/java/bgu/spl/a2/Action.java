@@ -73,7 +73,6 @@ public abstract class Action<R> {
             callback.call();
         AtomicInteger ActionLeft = new AtomicInteger(actions.size());//amount of action to be fulfilled
         while (NeedToComplete.hasNext()) {
-            //  if (!CurrentMission.getResult().isResolved())//check if current mission is resolved
             NeedToComplete.next().getResult().subscribe( () -> {
                 ActionLeft.decrementAndGet();
                 if(ActionLeft.intValue() == 0)///Completed all the actions

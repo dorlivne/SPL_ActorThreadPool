@@ -20,13 +20,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ActorThreadPool {
 	private Vector<Thread> _Threads = new Vector<>();
 	private boolean shutdown = false;
-	//private Vector<Queue<Action>> _Actors = new Vector<>();
 	private ConcurrentHashMap<String,Queue<Action>> _Actors = new ConcurrentHashMap<>();
 	private Vector<String>  _ActorsId = new Vector<>();
 	private ConcurrentHashMap<String,Boolean> _ActorsOccupied = new ConcurrentHashMap<>();
 	private HashMap<String,PrivateState> _ActorsPrivateState = new HashMap<>();
 	private VersionMonitor _version;
-	private Object Lock = new Object();
 
 
 
@@ -72,11 +70,10 @@ public class ActorThreadPool {
 				}
 			}//Actor Not found
 			if (!Submitted) {
-				 Queue<Action> x = new Queue<>();
-				 x.enqueue(action);
+				Queue<Action> x = new Queue<>();
+				x.enqueue(action);
 				_ActorsId.add(actorId);//now we need to add the name and private state to the appropriate queue
 				_Actors.put(actorId,x);
-			//	_Actors.add(x);
 				_ActorsOccupied.put(actorId, false);
 				_ActorsPrivateState.put(actorId, actorState);
 			}
@@ -127,6 +124,11 @@ public class ActorThreadPool {
 		//Should be able to find the actor id if not found return null
 	}
 
+	/**
+	 * this function operates the pool, it basiclly times the threads so no two threads go over the actors
+	 * this prevents chaos and allows for a thread to pick up an action and lock in to an actor safely
+	 *
+	 */
 	////Added Functions
 	private void ThreadFunction() {
 		while(!shutdown) {
@@ -159,27 +161,13 @@ public class ActorThreadPool {
 				} catch (InterruptedException e) {//A thread has just Completed a Turn
 				}
 			} else {//Executing = true means we need to exe an action
-				//	WorkingPrivateState.addRecord(Act.getActionName());
-					Act.handle(this, WorkingActor, WorkingPrivateState);
-					_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
-					_version.inc();
+				Act.handle(this, WorkingActor, WorkingPrivateState);
+				_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
+				_version.inc();
 			}
 			Thread.currentThread().interrupt();
 
 		}
 	}
 
-	/*protected Vector<ActorQueue<Action>> get_Actors() {
-		return _Actors;
-	}*/
-
-
-/*
-public Vector<Boolean> getThread(){
-	Vector <Boolean> x = new Vector<>();
-	for (Thread w:_Threads) {
-		x.add(w.isAlive());
-	}
-	return x;
-}*/
 }

@@ -19,9 +19,9 @@ import java.util.LinkedList;
  *            the result type, <boolean> resolved - initialized ;
  */
 public class Promise<T>{
-private T result = null;
-private boolean resolved = false;
-private LinkedList<callback> callBacks = new LinkedList<>();
+	private T result = null;
+	private boolean resolved = false;
+	private LinkedList<callback> callBacks = new LinkedList<>();
 
 	/**
 	 *
@@ -58,25 +58,27 @@ private LinkedList<callback> callBacks = new LinkedList<>();
 	 * resolved via the {@link #subscribe(callback)} method should
 	 * be executed before this method returns
 	 *
-     * @throws IllegalStateException
-     * 			in the case where this object is already resolved
+	 * @throws IllegalStateException
+	 * 			in the case where this object is already resolved
 	 * @param value
 	 *            - the value to resolve this promise object with
 	 */
-	public  void resolve(T value){
-		synchronized (callBacks){
+	public void resolve(T value){
+		if(resolved)
+			throw new IllegalStateException("Promise Already Resolved");
 		result =  value;
 		this.resolved = true;
 		int index = 0;//current index in the list
-		while( this.callBacks.size() != 0 && index< this.callBacks.size()) {
-			this.callBacks.get(index).call();
-			//this.callBacks.remove(index);
-			index++;
+		synchronized (callBacks){// to avoid call back added to this callbacks while some thread is subscribing for it
+			while( this.callBacks.size() != 0 && index< this.callBacks.size()) {
+				this.callBacks.get(index).call();
+
+				index++;
+			}
+			callBacks.notifyAll();
 		}
-		callBacks.notifyAll();
-		//callBacks = null;//possible error - how to re-define it? / done because of possible memory leak
 	}
-	}
+
 
 	/**
 	 * add a callback to be called when this object is resolved. If while

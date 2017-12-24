@@ -83,33 +83,3 @@ public class RegisterStudent extends Action {
     }
 }
 
-
-
-//TODO - old attempt - pref is a list of private sates and "then" is in the loop
-
-  /*     int index = 0;
-        for (CoursePrivateState pref : Preferences) {//add all preferences to the list of callbacks
-            if (!this.getResult().isResolved()) {
-                Action<Boolean> RegStudentConfirmation = new RegStudentConfirmation(this.studentID,this.Preferences.get(index).toString() ,this.Preferences.get(index).getPrequisites(), this.privateState.getGrades());
-                actions.add(RegStudentConfirmation);
-                sendMessage(RegStudentConfirmation, this.Preferences.get(index).toString(), new CoursePrivateState());
-                then(actions, () -> {
-                    Boolean result = actions.get(Preferences.indexOf(pref)).getResult().get();
-                    if (result == true) {
-                        this.privateState.addCourseAndGrade(this.Preferences.get(Preferences.indexOf(pref)).toString(),Grades.get(Preferences.indexOf(pref)));//TODO the course and it's grade to the student
-                        this.ActorState.addRecord(getActionName());
-                        complete(true);
-                        System.out.println("Student:" + this.studentID + "registered");
-                    } else if (Preferences.indexOf(pref) == Preferences.size()) {//ToDO check if it is ok to block it till last option
-                        complete(false);
-                        System.out.println("Student" + this.studentID + "not registered");
-                    }
-
-                });
-                index++;
-            }
-            else// Hopefully will not add another action
-                break;
-        }
-    }
-}*/

@@ -7,14 +7,20 @@ package bgu.spl.a2.sim;
 import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import bgu.spl.a2.Action;
 import bgu.spl.a2.ActorThreadPool;
 import bgu.spl.a2.PrivateState;
+import bgu.spl.a2.sim.privateStates.CoursePrivateState;
+import bgu.spl.a2.sim.privateStates.DepartmentPrivateState;
+import bgu.spl.a2.sim.privateStates.StudentPrivateState;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
+import com.sun.javafx.iio.ios.IosDescriptor;
+import sun.misc.ObjectInputFilter;
 
 
 /**
@@ -30,10 +36,10 @@ public class Simulator {
 	/**
 	 * Begin the simulation Should not be called before attachActorThreadPool()
 	 */
-	public static void start(){
+	public static void start() {
 		////////Computer Build////////
 		JsonArray Computers = Json.get("Computers").getAsJsonArray();
-		HashMap<String,Computer> ComputersCollection = JsonFunctions.GetComputers(Computers);
+		HashMap<String, Computer> ComputersCollection = JsonFunctions.GetComputers(Computers);
 		warehouse = new Warehouse(ComputersCollection);
 		actorThreadPool.start();
 		//Finished building a warehouse////////
@@ -49,8 +55,17 @@ public class Simulator {
 		StartFunc("Phase 3");
 		System.out.println("End Of Phase 3");
 		////////End Phase 3///////
-		end();
-
+		HashMap<String, PrivateState> SimulationResult = end();
+		Set<String> KeySet = SimulationResult.keySet();
+		try {
+			FileOutputStream fout = new FileOutputStream("result.ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			oos.writeObject(SimulationResult);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		} catch (IOException e) {
+			e.toString();
+		}
 
 	}
 	private static void StartFunc(String Phase){
@@ -83,31 +98,20 @@ public class Simulator {
 			actorThreadPool.shutdown();
 		}catch(InterruptedException ignored){}
 		HashMap<String,PrivateState> SimulationResult = ((HashMap<String,PrivateState>)actorThreadPool.getActors());
-		try {
-			FileOutputStream fout = new FileOutputStream("result.ser");
-			ObjectOutputStream oos = new ObjectOutputStream(fout);
-			oos.writeObject(SimulationResult);
-		}catch(FileNotFoundException e){
-			System.out.println("File not found");
-		}
-		catch(IOException e){e.toString();}
-
 		return SimulationResult;
 	}
 
-	//TODO CHANGE BACK TO INT!!!!!!
 	public static void main(String [] args){
-		//String path = args[0];
-		String path = "C:\\test.json";
+		String path = args[0];
+		//	String path = "C:\\test.json";
 		JsonParser Parser = new JsonParser();
 		JsonObject jsondocumnet = null;
 		int ThreadNumber;
 		try{
 			jsondocumnet = Parser.parse(new FileReader(path)).getAsJsonObject();
 		}catch(FileNotFoundException e){}
-		Json= jsondocumnet;
+		Json = jsondocumnet;
 		ThreadNumber = jsondocumnet.get("threads").getAsInt();
-		//ThreadNumber = 1;//TODO - for tests only
 		ActorThreadPool pool = new ActorThreadPool(ThreadNumber);
 		attachActorThreadPool(pool);
 		start();

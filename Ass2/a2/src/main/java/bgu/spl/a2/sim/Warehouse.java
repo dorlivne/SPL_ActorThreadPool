@@ -22,10 +22,14 @@ public class Warehouse {
         this.Computers = Computers;
     }
 
+    /**
+     * @param ComputerName hold the wanted computer id
+     * @return a Promise Object which will be resolved once the computer is free to acquire
+     */
     public Promise<Computer> GetComputer(String ComputerName){
         return Computers.get(ComputerName).Key.down();
-        }
     }
+}
 
 
 
