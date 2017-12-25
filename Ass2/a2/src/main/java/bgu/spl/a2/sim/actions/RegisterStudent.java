@@ -25,7 +25,7 @@ public class RegisterStudent extends Action {
         this.Grades = grades;
         this.PreferenceStr = PreferenceStr;
         this.currentPref = this.PreferenceStr.get(0);
-        this.setActionName("Register Student");
+        this.setActionName("Register with Preferences");
     }
 
     @Override

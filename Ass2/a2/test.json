@@ -1,5 +1,5 @@
 {
-"threads": 8,
+"threads": 18,
 "Computers" : [
 {
 "Type":"A",
@@ -25,7 +25,7 @@
 "Department": "CS",
 "Course": "SPL",
 "Space": "1",
-"Prerequisites" : ["Intro To CS"]
+"Prerequisites" : ["Data Structures", "Intro To CS"]
 },
 {
 "Action":"Open Course",
@@ -43,9 +43,23 @@
 "Action": "Add Student",
 "Department": "CS",
 "Student": "5959595959"
-}
+},
+  {
+    "Action":"Open Course",
+    "Department": "DOR IS COOCKY",
+    "Course": "Philosophy",
+    "Space": "2",
+    "Prerequisites" : []
+  }
 ],
 "Phase 2" : [
+  {
+    "Action":"Open Course",
+    "Department": "DOR IS COOCKY",
+    "Course": "Philosophy",
+    "Space": "2",
+    "Prerequisites" : []
+  },
 {
 "Action": "Add Student",
 "Department": "Math",
@@ -56,14 +70,14 @@
 "Action": "Participate In Course",
 "Student": "123456789",
 "Course": "Intro To CS",
-"Grade": ["77"]
+"Grade": ["-"]
 },
 
 {
 "Action": "Participate In Course",
-"Student": "5959595959",
-"Course": "Intro To CS",
-"Grade": ["94"]
+"Student": "123456789",
+"Course": "Data Structures",
+"Grade": ["12"]
 }
 ],
 "Phase 3": [
@@ -75,21 +89,32 @@
 },
 {
 "Action": "Participate In Course",
-"Student": "123456789",
+"Student": "5959595959",
 "Course": "Data Structures",
 "Grade": ["90"]
 },
 {
 "Action": "Participate In Course",
 "Student": "5959595959",
-"Course": "SPL",
+"Course": "Intro To CS",
 "Grade": ["100"]
 },
 {
 "Action": "Unregister",
-"Student": "123456789",
-"Course": "Data Structures"
+"Student": "5959595959",
+"Course": "Intro To CS"
 },
+  {
+    "Action": "Add Spaces",
+    "Course": "Philosophy",
+    "Number": "150"
+  },
+  {
+    "Action": "Participate In Course",
+    "Student": "123456789",
+    "Course": "Philosophy",
+    "Grade": ["-"]
+  },
 {
 "Action" : "Administrative Check",
 "Department": "CS",
