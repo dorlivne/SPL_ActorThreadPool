@@ -23,8 +23,7 @@ public class Unregister extends Action {
     protected void start() {
         boolean isRegistered = ((CoursePrivateState) this.ActorState).getRegStudents().contains(this.studentID);
         if (!isRegistered) {
-            this.ActorState.addRecord(getActionName());
-            complete(true);
+            pool.submit(this,this.courseName,this.ActorState);//try again later
         }
         else {
             List<Action<Boolean>> actions = new ArrayList<>();

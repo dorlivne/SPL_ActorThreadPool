@@ -52,7 +52,7 @@ public class ParticipateInCourse extends Action {
                 complete(true);
             }
         } else {
-            pool.submit(this,this.courseName,this.ActorState);//try again
+            pool.submit(this,this.courseName,this.ActorState);//try again later
         }
     }
 }
