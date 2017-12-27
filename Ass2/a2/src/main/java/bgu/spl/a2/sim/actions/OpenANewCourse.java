@@ -24,7 +24,7 @@ public class OpenANewCourse extends Action<Boolean> {
         this.departmentName = DepartmentName;
         this.availableSpots = spaces;
         this.prequisites = PreRequisits;
-        this.setActionName("Open A New Course");
+        this.setActionName("Open Course");
     }
 
     @Override

@@ -22,7 +22,7 @@ public class ParticipateInCourseConfirmation extends Action {
     }
 
     @Override
-    protected void start() {//TODO Sync?-if only one thread is here it's ok. check with LivneG
+    protected void start() {
         ((StudentPrivateState) this.ActorState).addCourseAndGrade(courseName, grade);//Adding course to student
         this.getResult().resolve(true);//added successfully
     }

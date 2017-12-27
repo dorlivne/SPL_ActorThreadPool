@@ -123,7 +123,7 @@ public class JsonFunctions {
                     }
                     RegisterStudent RegisterStudent = new RegisterStudent(ActorName,Pref,Grades);
                     ActionList.add(RegisterStudent);
-                    pool.submit(RegisterStudent,Pref.get(0),new CoursePrivateState());
+                    pool.submit(RegisterStudent,ActorName,new StudentPrivateState());
                     break;
                 case "Close Course":
                     ActorName = action.get("Department").getAsString();

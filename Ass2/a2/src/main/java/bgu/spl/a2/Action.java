@@ -17,10 +17,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public abstract class Action<R> {
     private Promise<R> promise = new Promise<>();
-    private boolean Contiunation = false;
-    private callback Tag;
+    protected boolean Contiunation = false;
+    protected callback Tag;
     protected ActorThreadPool pool;
-    private String ActorId;
+    protected String ActorId;
     private String ActionName;
     protected PrivateState ActorState;
 
@@ -48,8 +48,8 @@ public abstract class Action<R> {
         this.pool = pool;
         this.ActorState = actorState;
         if(this.Contiunation) {
+            this.Contiunation = false;
             this.Tag.call();
-            Contiunation = false;
         }else
             start();
     }

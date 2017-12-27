@@ -23,7 +23,7 @@ public class ActorThreadPool {
 	private ConcurrentHashMap<String,Queue<Action>> _Actors = new ConcurrentHashMap<>();
 	private Vector<String>  _ActorsId = new Vector<>();
 	private ConcurrentHashMap<String,Boolean> _ActorsOccupied = new ConcurrentHashMap<>();
-	private HashMap<String,PrivateState> _ActorsPrivateState = new HashMap<>();
+	private ConcurrentHashMap<String,PrivateState> _ActorsPrivateState = new ConcurrentHashMap<>();
 	private VersionMonitor _version;
 
 
@@ -112,7 +112,8 @@ public class ActorThreadPool {
 	 * @return actors
 	 */
 	public Map<String, PrivateState> getActors(){
-		return _ActorsPrivateState;
+
+		return this._ActorsPrivateState;
 	}
 	/**
 	 * getter for actor's private state
@@ -146,7 +147,7 @@ public class ActorThreadPool {
 						_ActorsOccupied.put(ActorId,true);//this queue is occupied
 						try {
 							Act = actor.dequeue();
-						}catch(InterruptedException e){System.out.println("WTF");}
+						}catch(InterruptedException e){}
 						Executing = true;
 						WorkingActor = ActorId;
 						WorkingPrivateState = _ActorsPrivateState.get(ActorId);
@@ -165,9 +166,10 @@ public class ActorThreadPool {
 				_ActorsOccupied.put(WorkingActor,false);//the thread finished with this queue can be use by another thread
 				_version.inc();
 			}
-			Thread.currentThread().interrupt();
+
 
 		}
+		Thread.currentThread().interrupt();
 	}
 
 }

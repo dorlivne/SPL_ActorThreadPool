@@ -32,8 +32,8 @@ public class Unregister extends Action {
             sendMessage(UnregisterConfirmation, this.studentID, new StudentPrivateState());
             then(actions, () -> {
                 Boolean result = actions.get(0).getResult().get();
+                this.ActorState.addRecord(getActionName());
                 if (result == true) {
-                    this.ActorState.addRecord(getActionName());
                     ((CoursePrivateState)this.ActorState).RemoveStudent(this.studentID);
                     complete(true);
                 } else {

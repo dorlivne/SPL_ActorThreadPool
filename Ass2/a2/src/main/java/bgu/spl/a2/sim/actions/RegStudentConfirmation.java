@@ -12,20 +12,26 @@ public class RegStudentConfirmation extends Action {
 
     private String studentID;
     private String courseName;
-    private Integer grade;
+    private HashMap<String,Integer> CorsesAndGrades;
 
 
-    public RegStudentConfirmation(String studentID, String courseName, Integer grade){
+    public RegStudentConfirmation(String studentID, String courseName, HashMap<String,Integer> CorsesAndGrades){
         this.courseName = courseName;
-        this.grade = grade;
+        this.CorsesAndGrades = CorsesAndGrades;
         this.studentID =studentID;
         this.setActionName("Register Student Confirmation");
     }
 
     @Override
     protected void start() {//TODO Sync?-if only one thread is here it's ok. check with LivneG
-        ((StudentPrivateState) this.pool.getActors().get(studentID)).addCourseAndGrade(this.courseName,this.grade);//TODO the course and it's grade to the student
+        List<String> prequisites = ((CoursePrivateState)this.ActorState).getPrequisites();
+        if(((CoursePrivateState)this.ActorState).HasReqCourses(prequisites, this.CorsesAndGrades) && ((CoursePrivateState)this.ActorState).getAvailableSpots() >= 1 ) {
+            ((CoursePrivateState)this.ActorState).updateParametrs(1,this.studentID);//reg + 1
+            ((CoursePrivateState)this.ActorState).setRegStudents(this.studentID);//add studentID to courseReg
             this.getResult().resolve(true);//added successfully
+        }
+        else
+            this.getResult().resolve(false);
 
     }
 }

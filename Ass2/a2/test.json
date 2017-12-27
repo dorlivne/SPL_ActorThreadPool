@@ -1,5 +1,5 @@
 {
-"threads": 18,
+"threads": 8,
 "Computers" : [
 {
 "Type":"A",
@@ -20,12 +20,33 @@
 "Space": "200",
 "Prerequisites" : []
 },
+  {
+    "Action":"Open Course",
+    "Department": "TestDepartment",
+    "Course": "TestCourse",
+    "Space": "2",
+    "Prerequisites" : []
+  },
+  {
+    "Action":"Open Course",
+    "Department": "TestDepartment",
+    "Course": "TestCourse2",
+    "Space": "2",
+    "Prerequisites" : ["TestCourse"]
+  },
+  {
+    "Action":"Open Course",
+    "Department": "TestDepartment",
+    "Course": "TestCourse3",
+    "Space": "1",
+    "Prerequisites" : []
+  },
 {
 "Action":"Open Course",
 "Department": "CS",
 "Course": "SPL",
 "Space": "1",
-"Prerequisites" : ["Data Structures", "Intro To CS"]
+"Prerequisites" : ["Intro To CS"]
 },
 {
 "Action":"Open Course",
@@ -39,88 +60,160 @@
 "Department": "CS",
 "Student": "123456789"
 },
+
+  {
+    "Action": "Add Student",
+    "Department": "TestDepartment",
+    "Student": "Amir"
+  },
+
+  {
+    "Action": "Add Student",
+    "Department": "TestDepartment",
+    "Student": "Maor"
+  },
+
 {
 "Action": "Add Student",
 "Department": "CS",
 "Student": "5959595959"
-},
-  {
-    "Action":"Open Course",
-    "Department": "DOR IS COOCKY",
-    "Course": "Philosophy",
-    "Space": "2",
-    "Prerequisites" : []
-  }
+}
 ],
 "Phase 2" : [
   {
-    "Action":"Open Course",
-    "Department": "DOR IS COOCKY",
-    "Course": "Philosophy",
-    "Space": "2",
-    "Prerequisites" : []
+    "Action": "Participate In Course",
+    "Student": "Amir",
+    "Course": "TestCourse",
+    "Grade": ["90"]
   },
 {
 "Action": "Add Student",
 "Department": "Math",
 "Student": "132424353"
 },
+  {
+    "Action": "Add Student",
+    "Department": "TestDepartment",
+    "Student": "Dor"
+  },
+  {
+    "Action": "Register With Preferences",
+    "Student": "Maor",
+    "Preferences":["TestCourse2","TestCourse3"],
+    "Grade": ["98","56"]
 
+  },
+
+
+  {
+    "Action": "Participate In Course",
+    "Student": "Dor",
+    "Course": "TestCourse2",
+    "Grade": ["90"]
+  },
+  {
+    "Action": "Participate In Course",
+    "Student": "Dor",
+    "Course": "TestCourse",
+    "Grade": ["77"]
+  },
+  {
+    "Action": "Unregister",
+    "Student": "Dor",
+    "Course": "TestCourse"
+  },
+  {
+    "Action": "Participate In Course",
+    "Student": "Dor",
+    "Course": "TestCourse",
+    "Grade": ["77"]
+  },
+
+
+  {
+    "Action": "Participate In Course",
+    "Student": "Maor",
+    "Course": "TestCourse2",
+    "Grade": ["90"]
+  },
+  {
+    "Action": "Participate In Course",
+    "Student": "Dor",
+    "Course": "TestCourse3",
+    "Grade": ["90"]
+  },
 {
 "Action": "Participate In Course",
 "Student": "123456789",
 "Course": "Intro To CS",
-"Grade": ["-"]
+"Grade": ["77"]
 },
+
 
 {
 "Action": "Participate In Course",
-"Student": "123456789",
-"Course": "Data Structures",
-"Grade": ["12"]
+"Student": "5959595959",
+"Course": "Intro To CS",
+"Grade": ["94"]
 }
+
 ],
 "Phase 3": [
+  {
+    "Action": "Participate In Course",
+    "Student": "Amir",
+    "Course": "TestCourse2",
+    "Grade": ["90"]
+  },
 {
 "Action": "Participate In Course",
 "Student": "123456789",
 "Course": "SPL",
 "Grade": ["98"]
 },
+  {
+    "Action": "Add Spaces",
+    "Course": "TestCourse3",
+    "Number": "100"
+  },
 {
 "Action": "Participate In Course",
-"Student": "5959595959",
+"Student": "123456789",
 "Course": "Data Structures",
 "Grade": ["90"]
 },
 {
 "Action": "Participate In Course",
 "Student": "5959595959",
-"Course": "Intro To CS",
+"Course": "SPL",
 "Grade": ["100"]
 },
 {
 "Action": "Unregister",
-"Student": "5959595959",
-"Course": "Intro To CS"
+"Student": "123456789",
+"Course": "Data Structures"
 },
-  {
-    "Action": "Add Spaces",
-    "Course": "Philosophy",
-    "Number": "150"
-  },
-  {
-    "Action": "Participate In Course",
-    "Student": "123456789",
-    "Course": "Philosophy",
-    "Grade": ["-"]
-  },
 {
 "Action" : "Administrative Check",
 "Department": "CS",
 "Students": ["123456789","5959595959"],
 "Computer": "A",
 "Conditions" : ["SPL", "Data Structures"]
-}
+},
+  {
+    "Action" : "Administrative Check",
+    "Department": "TestDepartment",
+    "Students": ["Maor","Dor"],
+    "Computer": "B",
+    "Conditions" : ["TestCourse", "TestCourse2"]
+  },
+  {
+    "Action" : "Administrative Check",
+    "Department": "TestDepartment",
+    "Students": ["Amir"],
+    "Computer": "B",
+    "Conditions" : ["TestCourse"]
+  }
+
 ]
 }

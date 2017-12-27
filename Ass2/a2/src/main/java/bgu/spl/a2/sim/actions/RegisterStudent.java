@@ -15,60 +15,41 @@ public class RegisterStudent extends Action {
     private List<Integer> Grades;
     private List<String> PreferenceStr;
     private String currentPref;
-    private List<String> preReq;
-    private HashMap<String,Integer> studentGrades;
-    private int availibalespots;
-    private int currentGrade;
 
     public RegisterStudent(String studentID, List<String> PreferenceStr, List<Integer> grades) {
         this.studentID = studentID;
-        this.Grades = grades;
+        Grades = grades;
         this.PreferenceStr = PreferenceStr;
-        this.currentPref = this.PreferenceStr.get(0);
-        this.setActionName("Register with Preferences");
+        if(this.PreferenceStr.size() > 0){
+            this.currentPref = this.PreferenceStr.get(0);
+        }
+        else
+            this.currentPref = null;
+
+        this.setActionName("Register With Preference");
     }
 
     @Override
     protected void start() {
-        boolean RegisteredAlready = ((CoursePrivateState) this.pool.getActors().get(currentPref)).getRegStudents().contains(this.studentID);
-        this.preReq = ((CoursePrivateState) this.pool.getActors().get(currentPref)).getPrequisites();
-        this.studentGrades = ((StudentPrivateState) this.pool.getActors().get(this.studentID)).getGrades();
-        this.availibalespots = ((CoursePrivateState) this.pool.getActors().get(this.currentPref)).getAvailableSpots();
+        List<Action<Boolean>> actions = new ArrayList<>();
+        Action<Boolean> RegStudentConfirmation = new RegStudentConfirmation(this.studentID, PreferenceStr.get(0), ((StudentPrivateState) this.pool.getActors().get(studentID)).getGrades());
+        actions.add(RegStudentConfirmation);
+        sendMessage(RegStudentConfirmation, this.currentPref, new CoursePrivateState());
 
-        if (!RegisteredAlready) {
-            if (((CoursePrivateState) this.ActorState).HasReqCourses(this.preReq, this.studentGrades) && availibalespots > 0) {
-                ((CoursePrivateState) this.ActorState).updateParametrs(1, this.studentID);//reg + 1
-                ((CoursePrivateState) this.ActorState).setRegStudents(this.studentID);//add studentID to courseReg
-                this.currentGrade = this.Grades.get(this.PreferenceStr.indexOf(currentPref));
-
-                List<Action<Boolean>> actions = new ArrayList<>();
-                Action<Boolean> RegStudentConfirmation = new RegStudentConfirmation(this.studentID, this.currentPref, this.currentGrade);
-                actions.add(RegStudentConfirmation);
-                sendMessage(RegStudentConfirmation, this.studentID, new StudentPrivateState());
-
-                then(actions, () -> {
-                    Boolean result = actions.get(0).getResult().get();
-                    if (result == true) {
-                        complete(true);
-                        this.ActorState.addRecord(getActionName());
-                    } else {//registered to none
-                        complete(false);
-                        this.ActorState.addRecord(getActionName());
-                    }
-                });
-            } else if (PreferenceStr.size() != 1){
-                this.NextPref();
-            } else{
+        then(actions, () -> {
+            Boolean result = actions.get(0).getResult().get();
+            if (result == true) {
+                this.ActorState.addRecord(getActionName());
+                ((StudentPrivateState) this.pool.getActors().get(studentID)).addCourseAndGrade(currentPref, Grades.get(PreferenceStr.indexOf(currentPref)));//TODO the course and it's grade to the student
                 complete(true);
+            } else if (PreferenceStr.size() != 1) {//there are more prefs to check
+                this.NextPref();
+            } else{//registered to none
+                complete(false);
+                this.ActorState.addRecord(getActionName());
             }
-        } else if (PreferenceStr.size() != 1){
-            this.NextPref();
-        } else{
-            this.ActorState.addRecord(getActionName());
-            complete(true);
-        }
+        });
     }
-
 
     private void NextPref(){
         this.PreferenceStr.remove(0);
@@ -76,4 +57,3 @@ public class RegisterStudent extends Action {
         this.start();
     }
 }
-

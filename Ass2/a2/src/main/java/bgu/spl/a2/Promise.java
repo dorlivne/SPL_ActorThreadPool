@@ -63,21 +63,21 @@ public class Promise<T>{
 	 * @param value
 	 *            - the value to resolve this promise object with
 	 */
-	public void resolve(T value){
+	public synchronized void resolve(T value){
 		if(resolved)
 			throw new IllegalStateException("Promise Already Resolved");
 		result =  value;
 		this.resolved = true;
 		int index = 0;//current index in the list
-		synchronized (callBacks){// to avoid call back added to this callbacks while some thread is subscribing for it
+
 			while( this.callBacks.size() != 0 && index< this.callBacks.size()) {
 				this.callBacks.get(index).call();
 
 				index++;
 			}
-			callBacks.notifyAll();
+			this.notifyAll();
 		}
-	}
+
 
 
 	/**
@@ -85,24 +85,14 @@ public class Promise<T>{
 	 * calling this method the object is already resolved - the callback should
 	 * be called immediately
 	 *
-	 *TODO- Note that in any case, the given callback should never get called more
-	 * TODO than once, in addition, in order to avoid memory leaks - once the
-	 * TODO callback got called, this object should not hold its reference any
-	 *TODO longer.
-	 *
 	 * @param callback
 	 *            the callback to be called when the promise object is resolved
 	 */
-	public   void subscribe(callback callback) {
-		synchronized (callBacks) {
-			if(!this.isResolved()) {
+	public synchronized void subscribe(callback callback) {
+		if(!this.isResolved())
 				this.callBacks.add(callback);
-				callBacks.notifyAll();
-			}
-		}
-		if(this.isResolved())
-			callback.call();
-
-
+		else
+				callback.call();
+		this.notifyAll();
 	}
 }

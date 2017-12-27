@@ -17,7 +17,6 @@ public class AddStudentConfirmation extends Action{
 
     @Override
     protected void start() {
-        ((DepartmentPrivateState)this.pool.getActors().get(this.depName)).AddStudentToDepartment(this.studentID);
         this.getResult().resolve(true);//added successfully
 
     }

@@ -19,7 +19,7 @@ public class CoursePrivateState extends PrivateState{
 	private List<String> prequisites;
 
 	/**
- 	 * Implementors note: you may not add other constructors to this class nor
+	 * Implementors note: you may not add other constructors to this class nor
 	 * you allowed to add any other parameter to this constructor - changing
 	 * this may cause automatic tests to fail..
 	 */
@@ -28,8 +28,6 @@ public class CoursePrivateState extends PrivateState{
 		this.registered = 0;
 		this.regStudents = new LinkedList<>();
 		this.prequisites = new LinkedList<>();
-		//TODO: replace method body with real implementation
-		//throw new UnsupportedOperationException("Not Implemented Yet.");
 	}
 
 	public Integer getAvailableSpots() {

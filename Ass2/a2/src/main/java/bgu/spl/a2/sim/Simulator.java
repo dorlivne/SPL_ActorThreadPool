@@ -7,20 +7,17 @@ package bgu.spl.a2.sim;
 import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import bgu.spl.a2.Action;
 import bgu.spl.a2.ActorThreadPool;
 import bgu.spl.a2.PrivateState;
-import bgu.spl.a2.sim.privateStates.CoursePrivateState;
-import bgu.spl.a2.sim.privateStates.DepartmentPrivateState;
-import bgu.spl.a2.sim.privateStates.StudentPrivateState;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.javafx.iio.ios.IosDescriptor;
-import sun.misc.ObjectInputFilter;
+
 
 
 /**
@@ -94,7 +91,8 @@ public class Simulator {
 		try {
 			actorThreadPool.shutdown();
 		}catch(InterruptedException ignored){}
-		HashMap<String,PrivateState> SimulationResult = ((HashMap<String,PrivateState>)actorThreadPool.getActors());
+		Map<String,PrivateState> Simulation = actorThreadPool.getActors();
+		HashMap<String,PrivateState> SimulationResult = new HashMap<>(Simulation);
 		return SimulationResult;
 	}
 

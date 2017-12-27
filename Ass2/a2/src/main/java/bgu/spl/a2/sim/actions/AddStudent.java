@@ -25,6 +25,7 @@ public class AddStudent extends Action{
         Action<Boolean> AddStudentConfirmation = new AddStudentConfirmation(this.DepartmentName,this.studentID);
         actions.add(AddStudentConfirmation);
         sendMessage(AddStudentConfirmation, this.studentID, new StudentPrivateState());
+        ((DepartmentPrivateState)this.ActorState).AddStudentToDepartment(this.studentID);
         then(actions,()->{
             Boolean result = actions.get(0).getResult().get();
             if(result == true) {

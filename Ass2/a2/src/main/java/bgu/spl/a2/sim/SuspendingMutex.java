@@ -59,7 +59,8 @@ public class SuspendingMutex {
 	 */
 	public void up(){
 		Locked.set(false);//we release a computer from use locked = false
-		Key.resolve(true);//callback the waiting list the first one who answer will get the computer
+		if(!Key.isResolved())
+			Key.resolve(true);//callback the waiting list the first one who answer will get the computer
 	}
 
 	/**

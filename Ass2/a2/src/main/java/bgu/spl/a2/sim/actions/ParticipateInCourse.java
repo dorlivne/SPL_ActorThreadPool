@@ -27,9 +27,13 @@ public class ParticipateInCourse extends Action {
     protected void start() {
         boolean RegisteredAlready = ((CoursePrivateState) this.ActorState).getRegStudents().contains(this.studentID);
         this.preReq = ((CoursePrivateState) this.ActorState).getPrequisites();
-        this.studentGrades = ((StudentPrivateState) this.pool.getActors().get(this.studentID)).getGrades();
+        try {
+            this.studentGrades = ((StudentPrivateState) this.pool.getActors().get(this.studentID)).getGrades();
+        }catch(NullPointerException e){
+            this.sendMessage(this,courseName,this.ActorState);
+            return;
+        }
         this.availibalespots = ((CoursePrivateState) this.pool.getActors().get(this.courseName)).getAvailableSpots();
-
         if (!RegisteredAlready) {
             if (((CoursePrivateState) this.ActorState).HasReqCourses(this.preReq, this.studentGrades) && availibalespots > 0) {
                 ((CoursePrivateState) this.ActorState).updateParametrs(1, this.studentID);//reg + 1
